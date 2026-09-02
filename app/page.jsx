@@ -6,7 +6,7 @@ import { site } from './site';
 export const metadata = {
   title: `${site.name} — ${site.tagline}`,
   description:
-    'Custom websites and software for small business. One person who builds it, launches it, and keeps it running — no agency handoffs, no duct tape.',
+    'Custom websites and software for small business, from a developer in Minneapolis. One person builds it, launches it, and keeps it running — no agency handoffs, no duct tape.',
   alternates: { canonical: '/' },
 };
 
@@ -16,21 +16,21 @@ const services = [
     tint: 'sage',
     title: 'Build',
     kicker: 'Sites, apps & tools',
-    body: 'A website that actually sells, or the internal tool your team has been running out of a spreadsheet. Built for what your business does, not bent around a template.',
+    body: 'A website that brings in work, or the internal tool your team has been running out of a spreadsheet. Built around what your business actually does, instead of bent to fit a template.',
   },
   {
     icon: <Launch />,
     tint: 'ochre',
     title: 'Launch',
     kicker: 'Hosting & go-live',
-    body: 'Domains, DNS, email, hosting, SSL — the unglamorous part where most projects stall. I handle the whole cutover so nothing goes dark on the day you switch.',
+    body: 'Domains, DNS, email, hosting, certificates — the boring half that sinks most projects. I run the whole cutover, so nothing goes dark on the day you switch.',
   },
   {
     icon: <Support />,
     tint: 'terracotta',
     title: 'Support',
     kicker: 'Monthly updates',
-    body: 'Software is never finished. Ongoing changes, fixes, and updates from the person who built it, so you are not re-explaining your business to a new developer every year.',
+    body: "Software's never finished. Changes and fixes come from the person who built the thing, so you're not re-explaining your business to a new developer every year.",
   },
 ];
 
@@ -38,17 +38,17 @@ const steps = [
   {
     num: 'Step 01',
     title: 'We talk about the actual problem',
-    body: 'Not features — the thing costing you hours or customers. Sometimes the honest answer is that you do not need custom software, and I will tell you that.',
+    body: "Not features — the thing costing you hours or customers. Sometimes the honest answer is that you don't need custom software, and I'll say so.",
   },
   {
     num: 'Step 02',
     title: 'You get a fixed scope and price',
-    body: 'What gets built, what it costs, and when it lands, in writing before any work starts. No hourly meter running in the background.',
+    body: 'What gets built, what it costs, and when it lands — in writing, before any work starts. No hourly meter running in the background.',
   },
   {
     num: 'Step 03',
     title: 'It ships, and it keeps working',
-    body: 'I launch it, make sure it holds up in the real world, and stay reachable afterwards. Your site is not a thing you hand off and hope about.',
+    body: "I launch it, make sure it holds up in the real world, and stay reachable afterwards. You don't get handed a login and wished luck.",
   },
 ];
 
@@ -69,17 +69,16 @@ export default function Home() {
                 <span className="grad-text">Not held together.</span>
               </h1>
               <p className="lead">
-                Tech Not Tape builds custom websites and software for small
-                businesses — then launches them and keeps them running. One
-                person, start to finish, who is still there in a year when you
-                need something changed.
+                I build custom websites and software for small businesses — then
+                launch them and keep them running. Based in Minneapolis, working
+                with clients anywhere. You deal with me, not an account manager.
               </p>
               <div className="btn-row">
                 <Link className="btn btn--primary" href="/contact/">
                   Start a project <Arrow />
                 </Link>
                 <Link className="btn btn--ghost" href="/services/">
-                  See what I do
+                  What I build
                 </Link>
               </div>
             </div>
@@ -128,7 +127,7 @@ export default function Home() {
             <p className="lead">
               A site someone&rsquo;s nephew built in 2019. A spreadsheet doing
               the job of a database. Three tools that don&rsquo;t talk to each
-              other and a person whose actual job is copying between them. It
+              other, and a person whose real job is copying between them. It
               works, right up until it doesn&rsquo;t.
             </p>
           </div>
@@ -137,22 +136,22 @@ export default function Home() {
             <div className="card tint-sage">
               <h3>Nobody owns it</h3>
               <p>
-                The person who built it stopped replying. Now every small change
-                is a project, and nobody can tell you how any of it works.
+                Whoever built it stopped replying. Every small change is a
+                project now, and nobody left can tell you how any of it works.
               </p>
             </div>
             <div className="card tint-ochre">
               <h3>It doesn&rsquo;t fit</h3>
               <p>
-                Off-the-shelf software that does 70% of the job, so your team
-                does the other 30% by hand, every single day, forever.
+                Software that does 70% of the job, so your team does the other
+                30% by hand. Every day. Forever.
               </p>
             </div>
             <div className="card tint-terracotta">
               <h3>It quietly breaks</h3>
               <p>
-                An expired certificate, a form that stopped sending, a domain
-                nobody renewed. You find out when a customer tells you.
+                An expired certificate, a contact form that stopped sending, a
+                domain nobody renewed. You find out when a customer tells you.
               </p>
             </div>
           </div>
@@ -166,7 +165,7 @@ export default function Home() {
             <p className="eyebrow">What I do</p>
             <h2>Built, launched, and supported.</h2>
             <p className="lead">
-              Three things, done properly, by the same person. Take all three or
+              Three things, done properly, by the same person. Take all three, or
               just the part you&rsquo;re stuck on.
             </p>
           </div>
@@ -218,20 +217,19 @@ export default function Home() {
           <div className="about-grid">
             <div>
               <p className="eyebrow">Who you get</p>
-              <h2>One person. Fifteen years of shipping.</h2>
+              <h2>One person, who has built this before.</h2>
             </div>
             <div className="prose">
               <p>
                 I&rsquo;m {site.owner}. I&rsquo;ve spent my career as a product
                 manager and builder taking software from nothing to live — in
-                healthcare, in compliance-heavy industries, and for founders
-                running a business out of a spreadsheet.
+                healthcare, in industries where compliance is not optional, and
+                for founders running a real business out of a spreadsheet.
               </p>
               <p>
-                That means I&rsquo;m as comfortable working out what should be
-                built as I am building it. You are not handed to a junior
-                developer after the sales call, because there is no sales call
-                and there is no one else.
+                So I&rsquo;m as comfortable working out what should be built as I
+                am building it — usually the difference between software that
+                gets used and software that gets quietly abandoned.
               </p>
               <ul className="checks">
                 <li>
@@ -243,8 +241,8 @@ export default function Home() {
                   and run end to end
                 </li>
                 <li>
-                  <Check /> Case management systems replacing spreadsheets for
-                  teams of coordinators
+                  <Check /> Case management systems that replaced spreadsheets
+                  for teams of coordinators
                 </li>
               </ul>
               <div className="btn-row">

@@ -40,7 +40,7 @@ export default function About() {
                   That order matters. A lot of small-business tech fails not
                   because it was built badly but because nobody asked the right
                   questions first — so a business ends up paying for something
-                  that solves a problem it does not have.
+                  that solves a problem it doesn&rsquo;t have.
                 </p>
                 <p>
                   I named this Tech Not Tape because of what I kept finding when
@@ -67,9 +67,9 @@ export default function About() {
             <div className="card">
               <h3>I will talk you out of it</h3>
               <p>
-                If an off-the-shelf tool does the job for $30 a month, that is
-                what I will tell you. It costs me a project and saves you a lot,
-                and it is why the people I work with come back.
+                If an off-the-shelf tool does the job for $30 a month, that&rsquo;s
+                what I&rsquo;ll tell you. It costs me a project and saves you a
+                lot, and it&rsquo;s why people come back.
               </p>
             </div>
             <div className="card">
@@ -83,17 +83,17 @@ export default function About() {
             <div className="card">
               <h3>Plain language, always</h3>
               <p>
-                You should never leave a conversation with me unsure of what was
-                decided. If I use a word you did not ask for, that is my
-                failure, not yours.
+                You should never leave a conversation with me unsure what was
+                decided. If I use a word you didn&rsquo;t ask for, that&rsquo;s
+                my failure, not yours.
               </p>
             </div>
             <div className="card">
               <h3>One person, all the way through</h3>
               <p>
-                The person on the first call is the person writing the code and
-                the person answering the phone in eighteen months. Nothing gets
-                lost in a handoff because there is no handoff.
+                The person on the first call is the person writing the code, and
+                the person answering the phone two years later. Nothing gets lost
+                in the handoff because there isn&rsquo;t one.
               </p>
             </div>
           </div>

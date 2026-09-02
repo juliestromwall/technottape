@@ -32,7 +32,7 @@ const detail = [
     tint: 'ochre',
     title: 'Launch',
     kicker: 'Hosting & go-live',
-    lead: 'The part where projects usually stall. Domains, DNS, mail, certificates — I do the cutover so nothing goes dark on switch day.',
+    lead: 'Domains, DNS, mail, certificates, redirects. I run the cutover myself, so switch day is uneventful — which is the highest compliment you can pay a launch.',
     items: [
       'Domain registration, transfers, and renewals you will not forget',
       'DNS migration with your email records protected through the move',
@@ -48,7 +48,7 @@ const detail = [
     tint: 'terracotta',
     title: 'Support',
     kicker: 'Monthly updates',
-    lead: 'Software is never finished. A monthly arrangement keeps the person who built it available when you need a change.',
+    lead: "The work doesn't stop at launch. A flat monthly arrangement keeps the person who built it on hand for when something needs to change.",
     items: [
       'Content, copy, and photo updates as your business changes',
       'New features and adjustments as you learn what customers want',
@@ -69,9 +69,9 @@ export default function Services() {
             <p className="eyebrow">Services</p>
             <h2>Three things, done properly.</h2>
             <p className="lead">
-              Most clients take all three — it is the same person building,
-              launching, and maintaining, which is the whole point. But you can
-              start with just the piece you&rsquo;re stuck on.
+              Most people take all three — the same person building, launching,
+              and maintaining it is the whole point. But if only one of them is
+              your problem right now, start there.
             </p>
           </div>
 
@@ -123,9 +123,8 @@ export default function Services() {
             <p className="eyebrow">What it costs</p>
             <h2>Fixed price, agreed before anything starts.</h2>
             <p className="lead">
-              Every project is different, so there is no price list here that
-              would tell you the truth. What I can promise is how the number
-              gets set.
+              Every project is different, so any price list here would be a
+              polite fiction. What I can tell you is how the number gets set.
             </p>
           </div>
 
@@ -140,8 +139,8 @@ export default function Services() {
             <div className="card" style={{ background: 'var(--dark-2)', borderColor: 'var(--dark-line)' }}>
               <h3 style={{ color: 'var(--on-dark)' }}>No hourly meter</h3>
               <p style={{ color: 'var(--on-dark-soft)' }}>
-                You should not be nervous about asking a question. Projects are
-                priced as a whole, not by the hour.
+                You shouldn&rsquo;t have to think twice about asking a question.
+                Projects are priced whole, not by the hour.
               </p>
             </div>
             <div className="card" style={{ background: 'var(--dark-2)', borderColor: 'var(--dark-line)' }}>

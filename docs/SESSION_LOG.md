@@ -61,3 +61,49 @@ bugs found and fixed in the process:
 - Any real client work that *can* be named, with logos or a testimonial? The
   Work page is deliberately anonymous right now, which is honest but less
   persuasive than a named reference would be.
+
+## 2026-09-02 (later)
+
+**Worked on:** Corrected the location, explored logos, then a full copy pass.
+
+**Changes made:**
+- **Location fixed: Minneapolis, MN, not Colorado.** I had assumed Colorado from
+  the old portfolio context and it was wrong. Corrected in `app/site.js`, the
+  layout metadata, the About page, and `docs/PRODUCT.md`.
+- Logo: twelve directions across two rounds in `logo/`, driven by `logo/build.py`
+  (mark geometry lives once and generates both the preview sheet and the SVG
+  files). All exported to `logo/svg/`. **No direction chosen — parked.** The site
+  still carries the placeholder bar mark.
+- **Copy pass across all five pages:**
+  - Cut **"One person. Fifteen years of shipping."** — I had invented that
+    number. Now "One person, who has built this before," which the rest of the
+    page actually supports.
+  - Minneapolis moved into the hero. It had only been in the footer, which is
+    useless for a local services business and for local search.
+  - Converted the site to contractions throughout. It had been written in a
+    stiff, formal register ("you do not need", "that is my failure") while
+    claiming to speak plainly.
+  - De-duplicated four lines that ran verbatim on two pages each — "software is
+    never finished", "the part where projects stall", "the piece you're stuck
+    on", and the "nobody asked the right questions" argument.
+  - Second CTA relabelled "See what I do" → "What I build".
+
+**Verified:** build clean, no console errors, and a repeated-phrase audit over
+the built HTML in `out/` now shows no body copy shared between pages (only the
+nav and footer chrome, which is meant to repeat).
+
+**Next steps:**
+1. Cloudflare Pages project + DNS cutover (`docs/DEPLOY.md`) — still the blocker
+   on going live.
+2. Formspree ID into `app/site.js`.
+3. Logo: pick a direction, or decide the site ships wordmark-only.
+
+**Open questions — things only Julie can answer:**
+- **Is "Taking on new projects" true right now?** It's in the hero pill.
+- **Pricing.** The site says "fixed price, agreed up front" but names no number
+  or range. Small-business buyers commonly bounce without one. A "projects
+  typically start at £X" line would convert better — I don't know the figure.
+- **Can any client be named?** The Work page is anonymous, which is honest but
+  much less persuasive than one named reference or a single real quote.
+- **How long has she actually been doing this?** A true number would strengthen
+  the About page; I removed the invented one rather than guess again.

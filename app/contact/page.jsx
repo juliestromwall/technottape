@@ -18,9 +18,9 @@ export default function Contact() {
           <h2>Tell me what needs building.</h2>
           <p className="lead">
             The more you can say about what your business actually does, the
-            more useful my first reply will be. There is no pitch on the other
-            end of this — worst case you get a straight answer about whether
-            custom software is even the right call.
+            more useful my first reply will be. There&rsquo;s no pitch waiting on
+            the other end of this — worst case, you get a straight answer about
+            whether custom software is even the right call.
           </p>
         </div>
 

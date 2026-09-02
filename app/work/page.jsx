@@ -46,8 +46,8 @@ export default function Work() {
             <h2>Things I&rsquo;ve taken from nothing to live.</h2>
             <p className="lead">
               Client names are left out on purpose — most of this is software
-              businesses run on internally, and that is not mine to advertise.
-              Happy to walk you through any of it properly on a call.
+              businesses run on internally, and that&rsquo;s not mine to
+              advertise. Happy to walk you through any of it on a call.
             </p>
           </div>
 
@@ -82,8 +82,8 @@ export default function Work() {
             <p className="lead">
               Not everything needs to be a platform. A five-page site that loads
               fast, a booking form that actually sends, a domain and email setup
-              that stops embarrassing you — those are good work too, and they are
-              often the highest-value thing I can do for a small business.
+              that stops embarrassing you — that&rsquo;s good work too, and often
+              the most valuable thing I can do for a small business.
             </p>
             <div className="btn-row" style={{ justifyContent: 'center' }}>
               <Link className="btn btn--primary" href="/contact/">

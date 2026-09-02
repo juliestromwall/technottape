@@ -43,6 +43,12 @@
 
 ## Changelog
 
+- **2026-09-02:** Copy pass across all five pages — removed a fabricated
+  "fifteen years" claim, put Minneapolis in the hero, switched the whole site to
+  contractions so it reads like speech, and de-duplicated four lines that
+  appeared verbatim on two pages each. Added a repeated-copy audit over the
+  built HTML.
+
 - **2026-09-02:** Site built from scratch — five pages, brand system, contact
   form with mailto fallback, sitemap/robots/favicon, verified in Chromium at
   1440px and 390px. Fixed low-contrast step text on the dark process band and a
