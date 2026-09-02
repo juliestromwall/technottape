@@ -72,4 +72,4 @@ is still around to change it later.
 |---|---|
 | Phone | 970.333.4481 |
 | Email | `hello@juliestromwall.com` — technottape.com has **no MX records** yet |
-| Location | Colorado; clients anywhere in the US |
+| Location | Minneapolis, MN; clients anywhere in the US |

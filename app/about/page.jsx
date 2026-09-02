@@ -126,8 +126,8 @@ export default function About() {
                   DNS, mail, and hosting side most developers hand off
                 </li>
                 <li>
-                  <Check /> Based in Colorado, working with clients anywhere in
-                  the US
+                  <Check /> Based in Minneapolis, working with clients anywhere
+                  in the US
                 </li>
               </ul>
             </div>

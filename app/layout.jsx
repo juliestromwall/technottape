@@ -17,7 +17,7 @@ export const metadata = {
     template: `%s — ${site.name}`,
   },
   description:
-    'Tech Not Tape builds custom websites and software for small businesses in Colorado and across the US — built, launched, and supported by one person who stays on the job.',
+    'Tech Not Tape builds custom websites and software for small businesses in Minneapolis and across the US — built, launched, and supported by one person who stays on the job.',
   openGraph: {
     type: 'website',
     url: site.url,

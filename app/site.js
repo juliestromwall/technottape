@@ -9,7 +9,7 @@ export const site = {
   phone: '970.333.4481',
   phoneHref: 'tel:+19703334481',
   owner: 'Julie Stromwall',
-  location: 'Colorado — working with clients anywhere in the US',
+  location: 'Minneapolis, MN — working with clients anywhere in the US',
 
   // Paste the Formspree form ID here (the bit after /f/ in the endpoint URL).
   // While it's empty the contact form falls back to opening a pre-filled email.
