@@ -30,6 +30,17 @@ export const metadata = {
       'Custom websites and software for small business. Built properly, launched carefully, supported once live.',
   },
   alternates: { canonical: '/' },
+  // The dense binary T is beautiful at 48px and up but turns to mush in a
+  // 16px browser tab, so the tab gets the simplified T instead.
+  icons: {
+    icon: [
+      { url: '/icon-16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/icon-32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/icon-48.png', sizes: '48x48', type: 'image/png' },
+      { url: '/icon-binary.svg', type: 'image/svg+xml', sizes: 'any' },
+    ],
+    apple: [{ url: '/apple-icon.png', sizes: '180x180' }],
+  },
 };
 
 export const viewport = { themeColor: '#08080a', colorScheme: 'dark' };

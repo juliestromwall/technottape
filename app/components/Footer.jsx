@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Wordmark from './Wordmark';
 import { site, nav } from '../site';
 
 export default function Footer() {
@@ -11,7 +12,7 @@ export default function Footer() {
 
         <div className="footer__cols">
           <div>
-            <h4>{site.name}</h4>
+            <Wordmark binary className="footer__wm" title={site.name} />
             <p className="footer__blurb">
               Websites and software for small businesses — built properly,
               launched carefully, and looked after once they&rsquo;re live.

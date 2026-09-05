@@ -703,6 +703,12 @@ p { color: var(--text-soft); }
 }
 .logo__mark { width: 26px; height: 26px; flex: none; }
 
+/* The wordmark is inline SVG so its <text> inherits Inter from next/font.
+   The nav runs it plain: at ~20px tall the binary fill stops being texture
+   and becomes noise. The footer, at more than twice that, carries it. */
+.logo__wm { height: 20px; width: auto; display: block; }
+.footer__wm { height: 46px; width: auto; display: block; margin-bottom: 22px; color: var(--text); }
+
 .nav__links { display: flex; gap: 42px; }
 .nav__links a {
   font-size: 11.5px;

@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import Mark from './Mark';
+import Wordmark from './Wordmark';
 import CursorToggle from './CursorToggle';
 import { site, nav } from '../site';
 
@@ -37,9 +37,8 @@ export default function Nav() {
       <header className={`nav${stuck ? ' is-stuck' : ''}`}>
         <div className="container">
           <div className="nav__inner">
-            <Link href="/" className="logo">
-              <Mark />
-              {site.name}
+            <Link href="/" className="logo" aria-label={site.name}>
+              <Wordmark className="logo__wm" />
             </Link>
 
             <nav className="nav__links">
