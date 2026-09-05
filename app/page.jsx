@@ -246,8 +246,8 @@ export default function Home() {
                   to end
                 </li>
                 <li className="reveal" style={{ '--d': '180ms' }}>
-                  Case management systems that replaced spreadsheets for teams of
-                  coordinators
+                  A custom CRM, job estimating, production and distribution
+                  software — and the websites of a good many small businesses
                 </li>
               </ul>
 

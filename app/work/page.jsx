@@ -6,7 +6,7 @@ import { Arrow } from '../components/Icons';
 export const metadata = {
   title: 'Work',
   description:
-    'Platforms and internal tools built end to end — medical records review, commission tracking, case management, and provider network software.',
+    'Platforms, internal tools and websites built end to end — medical records review, commission tracking, a custom CRM, job estimating, production and distribution software, and small-business websites.',
   alternates: { canonical: '/work/' },
 };
 
@@ -28,16 +28,37 @@ const projects = [
   {
     n: '03',
     meta: 'Operations · Internal tool',
-    title: 'Journey management system',
-    body: 'Case management for coordinators running long, multi-stage journeys with a lot of moving parts — milestones, documents, tasks, and people who all need different views of the same case. It replaced a stack of spreadsheets and calendar reminders with one timeline everybody could trust.',
-    tags: ['Case management', 'Milestone tracking', 'Task assignment', 'Admin tooling'],
+    title: 'Custom CRM system',
+    body: 'A CRM built around how one business actually works, rather than bending the business around an off-the-shelf tool. Contacts, stages, documents, tasks and ownership in one place, with each team seeing the view that matters to them. It replaced a stack of spreadsheets and calendar reminders with something everybody could trust.',
+    tags: ['Custom CRM', 'Pipeline stages', 'Task assignment', 'Admin tooling'],
   },
   {
     n: '04',
-    meta: 'Healthcare · Network software',
-    title: 'Provider network platform',
-    body: 'Software for managing a network of healthcare providers — onboarding, records, and the matching of providers to the people who need them. The kind of system where the hard part is not the screens, it is understanding the operation well enough to know which screens should exist.',
-    tags: ['Provider onboarding', 'Matching', 'Reporting', 'Discovery-led'],
+    meta: 'Trades · Estimating tool',
+    title: 'Handyman estimating & quoting tool',
+    body: 'Software for pricing jobs: build an estimate from labour and materials, keep pricing consistent from one job to the next, and get a clean quote to the customer quickly instead of days later. The kind of tool that turns an evening of paperwork into a few minutes.',
+    tags: ['Estimating', 'Quoting', 'Pricing consistency', 'Field-friendly'],
+  },
+  {
+    n: '05',
+    meta: 'Arts · Platform',
+    title: 'Theatre & production platform',
+    body: 'A platform for running productions — the people, the scheduling, and the many moving parts that otherwise live across a dozen spreadsheets, printouts and group chats. Built so everyone involved can see the same current version instead of last week&rsquo;s.',
+    tags: ['Scheduling', 'People & roles', 'Production workflow', 'Shared source of truth'],
+  },
+  {
+    n: '06',
+    meta: 'Logistics · Platform',
+    title: 'Distribution centre platform',
+    body: 'Software for a distribution operation: what has arrived, what is going out, and where everything sits in between. Replaces the paper and the memory of whoever has worked there longest with a record the whole team can check.',
+    tags: ['Inbound & outbound', 'Inventory visibility', 'Operations', 'Reporting'],
+  },
+  {
+    n: '07',
+    meta: 'Web · Ongoing',
+    title: 'Websites for small businesses',
+    body: 'Marketing sites for small businesses across a range of trades and services. Fast on a phone, clear about what the business does, and easy to get in touch with — then looked after afterwards, so a change of hours or a new photo never needs a developer on standby.',
+    tags: ['Marketing sites', 'Mobile-first', 'Hosting & launch', 'Ongoing support'],
   },
 ];
 
