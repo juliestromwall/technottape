@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import TapedPhrase from './TapedPhrase';
 import Wordmark from './Wordmark';
 import { site, nav } from '../site';
 
@@ -7,7 +6,9 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div className="container">
-        <TapedPhrase className="footer__big" />
+        <div className="footer__big" aria-hidden="true">
+          Ditch the tape.
+        </div>
 
         <div className="footer__cols">
           <div>
