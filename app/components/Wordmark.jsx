@@ -11,16 +11,15 @@
  * larger placements switch it on.
  */
 
-// fixed, not random — a random fill would differ between server and client
-// render and trip a hydration mismatch
+// Fixed, not random — a random fill would differ between the server and client
+// render and trip a hydration mismatch. Four chunky rows rather than seven fine
+// ones: at wordmark sizes fine digits read as dirt on the letterforms, not as
+// 1s and 0s. Same density as the favicon.
 const BITS = [
-  '01000101101100101110010001101',
-  '11010011010110100111000101101',
-  '00110101110010110100011011001',
-  '10101100011101001011010011100',
-  '01101001011010110001110100110',
-  '11001011101000110101100101011',
-  '00101110100101100111010001101',
+  '010110010111001011010011100101',
+  '110100101100110100101110010110',
+  '001011101001011011001010110100',
+  '101001011010100110100101100111',
 ];
 
 const S = 100;
@@ -72,9 +71,9 @@ export default function Wordmark({ binary = false, className, title = 'Tech Not 
                 key={i}
                 x={-2}
                 y={i * rowH + rowH * 0.82}
-                fontSize={rowH * 0.92}
+                fontSize={rowH * 0.82}
                 fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
-                letterSpacing={rowH * 0.1}
+                letterSpacing={rowH * 0.06}
                 fillOpacity="0.92"
               >
                 {row}

@@ -38,7 +38,7 @@ export default function Nav() {
         <div className="container">
           <div className="nav__inner">
             <Link href="/" className="logo" aria-label={site.name}>
-              <Wordmark className="logo__wm" />
+              <Wordmark binary className="logo__wm" />
             </Link>
 
             <nav className="nav__links">
