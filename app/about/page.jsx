@@ -78,9 +78,17 @@ export default function About() {
                 looked at it properly yet.
               </p>
               <p className="lead reveal" style={{ '--d': '330ms', marginTop: 24 }}>
-                Away from work: I&rsquo;ve been a surrogate three times, I&rsquo;m
-                married with two teenagers, and we have two rescued dogs who
-                consider themselves additional children.
+                Away from work, my family is the whole point of it. I&rsquo;m
+                married with two teenagers who are far funnier than I am, and two
+                rescued dogs who are quite certain they count as children too.
+                Most of what matters to me happens in that house.
+              </p>
+              <p className="lead reveal" style={{ '--d': '440ms', marginTop: 24 }}>
+                I&rsquo;ve also been a surrogate three times — three families who
+                wanted children and now have them. It&rsquo;s the thing I&rsquo;m
+                proudest of outside of raising my own, and honestly it comes from
+                the same place as the rest of this: I love helping people reach
+                something they couldn&rsquo;t get to on their own.
               </p>
             </div>
           </div>
