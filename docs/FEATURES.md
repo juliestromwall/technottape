@@ -53,3 +53,20 @@
   form with mailto fallback, sitemap/robots/favicon, verified in Chromium at
   1440px and 390px. Fixed low-contrast step text on the dark process band and a
   wrapping logo in the mobile nav.
+
+## Immersive redesign (branch: `redesign-immersive`)
+
+| Piece | Location | Description |
+|---|---|---|
+| Design system | `app/globals.css` | Dark system on near-black `#08080a`; brand accents lifted for a dark ground; uppercase display type; grain + vignette overlay |
+| HeroCanvas | `app/components/HeroCanvas.jsx` | three.js `InstancedMesh` grid (one draw call). Idle wave, pointer displacement with colour bloom, scroll tilt/recede. Falls back to nothing if WebGL is unavailable; static single frame under reduced motion |
+| SmoothScroll | `app/components/SmoothScroll.jsx` | Lenis inertia scrolling; intercepts in-page anchors; disabled under reduced motion |
+| Cursor | `app/components/Cursor.jsx` | Lerped dot + ring, `mix-blend-mode: difference`, expands over interactive targets. Only on fine pointers |
+| Motion | `app/components/Motion.jsx` | One IntersectionObserver for every `.reveal` / `.kinetic` on the page; re-runs per route |
+| SplitText | `app/components/SplitText.jsx` | Server component splitting a line into per-character spans for the staggered reveal; real text in the HTML |
+| Nav | `app/components/Nav.jsx` | Fixed, blurs and shrinks on scroll; full-screen clip-path overlay menu on mobile |
+
+**Robustness:** an inline pre-paint script adds `js-motion` to `<html>`, and only
+that class arms the hidden state. With JS off or broken, every page renders as
+plain readable content instead of blank. Verified: 183–548 words of visible copy
+per page with JavaScript disabled.

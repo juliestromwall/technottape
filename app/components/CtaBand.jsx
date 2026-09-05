@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import SplitText from './SplitText';
+import { Arrow } from './Icons';
 import { site } from '../site';
 
 export default function CtaBand({
@@ -6,19 +8,21 @@ export default function CtaBand({
   body = 'A short conversation is usually enough to tell whether this is a two-week job or a two-month one. No charge for finding out.',
 }) {
   return (
-    <section className="section section--tight">
+    <section className="cta">
       <div className="container">
-        <div className="cta-band">
-          <h2>{title}</h2>
-          <p>{body}</p>
-          <div className="btn-row">
-            <Link className="btn btn--solid-light" href="/contact/">
-              Start a project
-            </Link>
-            <a className="btn btn--ghost" href={site.phoneHref} style={{ borderColor: 'rgba(255,255,255,.45)', color: '#fff' }}>
-              Call {site.phone}
-            </a>
-          </div>
+        <h2 className="kinetic">
+          <SplitText text={title} />
+        </h2>
+        <p className="lead reveal" style={{ '--d': '120ms' }}>
+          {body}
+        </p>
+        <div className="btn-row reveal" style={{ '--d': '220ms' }}>
+          <Link className="btn btn--fill" href="/contact/">
+            Start a project <Arrow />
+          </Link>
+          <a className="btn" href={site.phoneHref}>
+            {site.phone}
+          </a>
         </div>
       </div>
     </section>

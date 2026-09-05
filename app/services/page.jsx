@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import CtaBand from '../components/CtaBand';
-import { Arrow, Build, Check, Launch, Support } from '../components/Icons';
+import SplitText from '../components/SplitText';
+import { Arrow } from '../components/Icons';
 
 export const metadata = {
   title: 'Services',
@@ -12,8 +13,8 @@ export const metadata = {
 const detail = [
   {
     id: 'build',
-    icon: <Build />,
-    tint: 'sage',
+    n: '01',
+    accent: 'var(--sage)',
     title: 'Build',
     kicker: 'Sites, apps & tools',
     lead: 'A marketing site that brings in work, a web app your customers log into, or the internal tool that finally kills the spreadsheet.',
@@ -28,8 +29,8 @@ const detail = [
   },
   {
     id: 'launch',
-    icon: <Launch />,
-    tint: 'ochre',
+    n: '02',
+    accent: 'var(--ochre)',
     title: 'Launch',
     kicker: 'Hosting & go-live',
     lead: 'Domains, DNS, mail, certificates, redirects. I run the cutover myself, so switch day is uneventful — which is the highest compliment you can pay a launch.',
@@ -44,11 +45,11 @@ const detail = [
   },
   {
     id: 'support',
-    icon: <Support />,
-    tint: 'terracotta',
+    n: '03',
+    accent: 'var(--terracotta)',
     title: 'Support',
     kicker: 'Monthly updates',
-    lead: "The work doesn't stop at launch. A flat monthly arrangement keeps the person who built it on hand for when something needs to change.",
+    lead: 'The work doesn’t stop at launch. A flat monthly arrangement keeps the person who built it on hand for when something needs to change.',
     items: [
       'Content, copy, and photo updates as your business changes',
       'New features and adjustments as you learn what customers want',
@@ -63,50 +64,59 @@ const detail = [
 export default function Services() {
   return (
     <>
-      <section className="section section--tight" style={{ paddingTop: 76 }}>
+      <section className="section" style={{ paddingTop: 200 }}>
         <div className="container">
           <div className="section-head">
-            <p className="eyebrow">Services</p>
-            <h2>Three things, done properly.</h2>
-            <p className="lead">
+            <p className="eyebrow reveal">Services</p>
+            <h2 className="kinetic">
+              <SplitText text="Three things," />
+              <SplitText text="done properly." start={12} />
+            </h2>
+            <p className="lead reveal" style={{ '--d': '160ms' }}>
               Most people take all three — the same person building, launching,
               and maintaining it is the whole point. But if only one of them is
               your problem right now, start there.
             </p>
           </div>
 
-          <div className="grid grid--3">
+          <div className="rows">
             {detail.map((s) => (
-              <a className="card card--lift" href={`#${s.id}`} key={s.id}>
-                <span className={`icon-badge icon-badge--${s.tint}`}>{s.icon}</span>
-                <h3>{s.title}</h3>
-                <p>{s.kicker}</p>
+              <a className="row-item reveal" href={`#${s.id}`} key={s.id}>
+                <div className="row-item__num">{s.n}</div>
+                <div>
+                  <h3>{s.title}</h3>
+                </div>
+                <div>
+                  <p>{s.kicker}</p>
+                </div>
               </a>
             ))}
           </div>
         </div>
       </section>
 
-      {detail.map((s, i) => (
+      {detail.map((s) => (
         <section
-          className={`section${i % 2 === 0 ? ' section--paper' : ''}`}
+          className="section section--edge"
           id={s.id}
           key={s.id}
-          style={{ scrollMarginTop: 80 }}
+          style={{ scrollMarginTop: 110 }}
         >
           <div className="container">
-            <div className="about-grid">
+            <div className="split split--sticky">
               <div>
-                <span className={`icon-badge icon-badge--${s.tint}`}>{s.icon}</span>
-                <p className="eyebrow">{s.kicker}</p>
-                <h2>{s.title}</h2>
+                <p className="eyebrow reveal">{s.kicker}</p>
+                <h2 className="kinetic" style={{ marginTop: 30, color: s.accent }}>
+                  <SplitText text={s.title} />
+                </h2>
               </div>
-              <div className="prose">
-                <p className="lead">{s.lead}</p>
-                <ul className="checks">
-                  {s.items.map((item) => (
-                    <li key={item}>
-                      <Check /> {item}
+              <div>
+                <p className="lead reveal">{s.lead}</p>
+                <ul className="checks" style={{ marginTop: 44 }}>
+                  {s.items.map((item, i) => (
+                    <li className="reveal" style={{ '--d': `${i * 70}ms` }} key={item}>
+                      <span>{String(i + 1).padStart(2, '0')}</span>
+                      {item}
                     </li>
                   ))}
                 </ul>
@@ -117,35 +127,44 @@ export default function Services() {
       ))}
 
       {/* pricing posture */}
-      <section className="section section--dark">
+      <section className="section section--edge">
         <div className="container">
           <div className="section-head">
-            <p className="eyebrow">What it costs</p>
-            <h2>Fixed price, agreed before anything starts.</h2>
-            <p className="lead">
+            <p className="eyebrow reveal">What it costs</p>
+            <h2 className="kinetic">
+              <SplitText text="Fixed price, agreed" />
+              <SplitText text="before anything starts." start={19} />
+            </h2>
+            <p className="lead reveal" style={{ '--d': '160ms' }}>
               Every project is different, so any price list here would be a
               polite fiction. What I can tell you is how the number gets set.
             </p>
           </div>
 
           <div className="grid grid--3">
-            <div className="card" style={{ background: 'var(--dark-2)', borderColor: 'var(--dark-line)' }}>
-              <h3 style={{ color: 'var(--on-dark)' }}>A scope, in writing</h3>
-              <p style={{ color: 'var(--on-dark-soft)' }}>
+            <div className="cell reveal">
+              <span className="cell__bar" style={{ '--accent': 'var(--sage)' }} />
+              <span className="cell__num">01</span>
+              <h3>A scope, in writing</h3>
+              <p>
                 What is being built, what is not, and what it costs — before you
                 commit to anything.
               </p>
             </div>
-            <div className="card" style={{ background: 'var(--dark-2)', borderColor: 'var(--dark-line)' }}>
-              <h3 style={{ color: 'var(--on-dark)' }}>No hourly meter</h3>
-              <p style={{ color: 'var(--on-dark-soft)' }}>
+            <div className="cell reveal" style={{ '--d': '110ms' }}>
+              <span className="cell__bar" style={{ '--accent': 'var(--ochre)' }} />
+              <span className="cell__num">02</span>
+              <h3>No hourly meter</h3>
+              <p>
                 You shouldn&rsquo;t have to think twice about asking a question.
                 Projects are priced whole, not by the hour.
               </p>
             </div>
-            <div className="card" style={{ background: 'var(--dark-2)', borderColor: 'var(--dark-line)' }}>
-              <h3 style={{ color: 'var(--on-dark)' }}>Support is monthly</h3>
-              <p style={{ color: 'var(--on-dark-soft)' }}>
+            <div className="cell reveal" style={{ '--d': '220ms' }}>
+              <span className="cell__bar" style={{ '--accent': 'var(--terracotta)' }} />
+              <span className="cell__num">03</span>
+              <h3>Support is monthly</h3>
+              <p>
                 A flat monthly rate after launch. Cancel it whenever — you keep
                 the code and the accounts either way.
               </p>
@@ -153,7 +172,7 @@ export default function Services() {
           </div>
 
           <div className="btn-row">
-            <Link className="btn btn--primary" href="/contact/">
+            <Link className="btn btn--fill" href="/contact/">
               Get a price for your project <Arrow />
             </Link>
           </div>
