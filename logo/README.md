@@ -103,3 +103,33 @@ Fixed here: the canvas width was estimated rather than measured, so the E was
 clipped off TAPE in all six. "NOT TAPE" measures 4.626em in Inter 700 at
 -0.045em tracking; the build now uses that, and the render asserts no element
 overflows its viewBox.
+
+## Round five — binary refined, NOT stepped down
+
+`build5.py` → `explore-5.html` → `preview-round5.png`, SVGs in `svg5/`.
+
+Two changes that fixed the binary direction:
+
+1. **Monochrome.** The 1s and 0s are now the same colour as the type — cream on
+   the dark ground, near-black on light. The ochre version read as a 1990s
+   "cyber" trope; the same idea in one colour reads as craft.
+2. **Outlined letterforms.** TECH is stroked as well as binary-filled, so the
+   silhouette holds even when the texture goes busy. This is what makes it
+   survive at header size.
+
+Six treatments for NOT, all stepped well down from the big words:
+
+| Ref | Treatment |
+|---|---|
+| M | Small caps at 30%, centred |
+| N | Lowercase "not", centred — reads as the name spoken |
+| O | Small caps, widely tracked, so NOT reads as a label |
+| P | Small caps in ochre — the one spot of colour |
+| Q | NOT inside a hollow pill, echoing the TAPE rule |
+| R | Lowercase, larger, on the same baseline |
+
+Recommended: **N** or **O**.
+
+Type widths are measured, not estimated: TECH w800 @-0.045 = 2.599em,
+TAPE w700 @-0.045 = 2.401em, NOT w600 @+0.08 = 2.397em, not = 1.814em.
+The render asserts nothing overflows its viewBox.
