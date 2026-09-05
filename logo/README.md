@@ -51,3 +51,85 @@ where marks actually fail.
 **The site is untouched** — it still carries the original placeholder bar mark
 in `app/icon.svg` and `app/components/Mark.jsx`. Nothing gets swapped in until a
 direction is chosen.
+
+---
+
+## Round three — built from the site's own rule
+
+`build3.py` → `explore-3.html` → `preview-round3.png`, with SVGs in `svg3/`.
+
+The first two rounds failed because they were abstract symbols invented from
+nothing. This round takes the rule the site already uses and that Julie
+responded to: **substance is solid, tape is hollow.** The word "tape" is
+stroke-only in the hero, in the "with tape." heading, and in the footer.
+
+| Direction | Idea |
+|---|---|
+| A — Stacked Wordmark | TECH / NOT / TAPE in three tight lines, TAPE hollow |
+| B — Inline Wordmark | The same, horizontal, for the header and signatures |
+| C — TNT | Initials with the final T hollow |
+| D — The Strip | Solid block with a hollow strip laid across it |
+| E — Two Solid, One Hollow | The existing bar mark with the short bar outlined |
+| F — Hollow T | Hollow crossbar, solid stem |
+
+**Known constraint:** a stroke-only mark thins toward nothing below about
+24px. Whichever wordmark is chosen should be paired with a solid compact mark
+(C, E or F) for favicons and app icons. That is a normal two-part identity,
+not a compromise.
+
+Fixed in this round: B and C positioned "TAPE"/"T" with a hand-computed x
+offset, which overlapped the preceding letters. They now use a single `<text>`
+with a `<tspan>`, so the text engine advances the pen and the glyphs cannot
+collide.
+
+## Round four — making TECH digital
+
+`build4.py` → `explore-4.html` → `preview-round4.png`, SVGs in `svg4/`.
+
+Extends the rule to all three words: **TECH digital · NOT solid · TAPE hollow.**
+
+| Direction | Idea | Read |
+|---|---|---|
+| G — Binary Fill | Letterforms filled with 1s and 0s | What was asked for, but it collapses to texture at header size |
+| H — Pixel | TECH from squares on a coarse grid | **Strongest.** Clearly digital, legible at every size |
+| I — Data Ribbon | Clean type, binary strip beneath | Restrained; the strip smudges when small |
+| J — Dissolve | Solid left, breaking into bits right | Best idea, but costs the H — reads "TEC:" small |
+| K — Zero Swap | The O in NOT becomes a zero | Most timeless; one character does the job |
+| L — Dot Matrix | LED panel, unlit dots included | Strong, slightly busier than H |
+
+Recommended: **H**, optionally combined with **K**'s zero.
+
+Fixed here: the canvas width was estimated rather than measured, so the E was
+clipped off TAPE in all six. "NOT TAPE" measures 4.626em in Inter 700 at
+-0.045em tracking; the build now uses that, and the render asserts no element
+overflows its viewBox.
+
+## Round five — binary refined, NOT stepped down
+
+`build5.py` → `explore-5.html` → `preview-round5.png`, SVGs in `svg5/`.
+
+Two changes that fixed the binary direction:
+
+1. **Monochrome.** The 1s and 0s are now the same colour as the type — cream on
+   the dark ground, near-black on light. The ochre version read as a 1990s
+   "cyber" trope; the same idea in one colour reads as craft.
+2. **Outlined letterforms.** TECH is stroked as well as binary-filled, so the
+   silhouette holds even when the texture goes busy. This is what makes it
+   survive at header size.
+
+Six treatments for NOT, all stepped well down from the big words:
+
+| Ref | Treatment |
+|---|---|
+| M | Small caps at 30%, centred |
+| N | Lowercase "not", centred — reads as the name spoken |
+| O | Small caps, widely tracked, so NOT reads as a label |
+| P | Small caps in ochre — the one spot of colour |
+| Q | NOT inside a hollow pill, echoing the TAPE rule |
+| R | Lowercase, larger, on the same baseline |
+
+Recommended: **N** or **O**.
+
+Type widths are measured, not estimated: TECH w800 @-0.045 = 2.599em,
+TAPE w700 @-0.045 = 2.401em, NOT w600 @+0.08 = 2.397em, not = 1.814em.
+The render asserts nothing overflows its viewBox.

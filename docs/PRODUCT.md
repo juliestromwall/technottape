@@ -54,8 +54,13 @@ is still around to change it later.
 
 ## Brand
 
-- **Palette:** carried over from the Betora system — Sage `#4F6F52`, Ochre
-  `#BC8F3B`, Terracotta `#A8553A`, Ink `#1C1917`, warm paper `#FAF8F4`.
+- **Palette (immersive redesign):** warm near-black ground `#0D0B0A`, with the
+  brand accents lifted for a dark background — Sage `#7FAE83`, Ochre `#E6B455`,
+  Terracotta `#E07F57`. Colour arrives three ways: soft radial washes per
+  section (`.glow--sage/ochre/terra/duo`), the two WebGL scenes, and a
+  three-colour gradient on the CTA band.
+- **Palette (original light system):** Sage `#4F6F52`, Ochre `#BC8F3B`,
+  Terracotta `#A8553A`, Ink `#1C1917`, warm paper `#FAF8F4`.
 - **Signature gradient:** sage → ochre → terracotta (115°), used on the hero
   panel, primary buttons, gradient headline text, and the CTA bands.
 - **Type:** Inter. Headings 600 weight, tight tracking.

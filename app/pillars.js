@@ -1,0 +1,60 @@
+// The four things, in one place — home and /services both render from this,
+// so they can't drift apart.
+export const pillars = [
+  {
+    title: 'Sort',
+    accent: 'var(--sage)',
+    kicker: 'Workflow, SOPs & bottlenecks',
+    lead: 'Before anyone builds anything: where does the work actually get stuck? I sit with you, map how the business really runs, and write the steps down so anyone can follow them. Often the fix is not software at all.',
+    items: [
+      'Finding the bottleneck that is quietly costing you hours every week',
+      'Standard operating procedures, written in plain language your team will use',
+      'Getting what lives in your head onto a page anyone can follow',
+      'Deciding what is worth automating and what to leave alone',
+      'Choosing tools you will actually use, not the most impressive ones',
+      'An honest answer on whether you need custom software at all',
+    ],
+  },
+  {
+    title: 'Build',
+    accent: 'var(--ochre)',
+    kicker: 'Sites, apps & tools',
+    lead: 'A website that brings in work, or the internal tool your team has been running out of a spreadsheet. Built around what your business actually does, instead of bent to fit a template.',
+    items: [
+      'Marketing sites that load fast and read well on a phone',
+      'Web applications with logins, roles, and real data behind them',
+      'Internal tools — job tracking, scheduling, quoting, reporting',
+      'Replacing a spreadsheet or a paper process with something that scales',
+      'Integrations between the tools you already pay for',
+      'Fixing or finishing a project another developer walked away from',
+    ],
+  },
+  {
+    title: 'Launch',
+    accent: 'var(--terracotta)',
+    kicker: 'Hosting, cloud & go-live',
+    lead: 'Domains, DNS, mail, certificates, backups. I run the cutover myself, so switch day is uneventful — which is the highest compliment you can pay a launch.',
+    items: [
+      'Domain registration, transfers, and renewals you will not forget',
+      'DNS migration with your email protected through the move',
+      'Secure cloud hosting that costs a few dollars a month, not a few hundred',
+      'Encrypted storage, automatic off-site backups, and a tested way to restore',
+      'Access control — who can see what, and who definitely cannot',
+      'Business email that lands in inboxes instead of spam folders',
+    ],
+  },
+  {
+    title: 'Support',
+    accent: 'var(--sage)',
+    kicker: 'Monthly updates',
+    lead: 'The work does not stop at launch. A flat monthly arrangement keeps the person who built it on hand for when something needs to change.',
+    items: [
+      'Content, copy, and photo updates as your business changes',
+      'New features and adjustments as you learn what customers want',
+      'Security and dependency updates so nothing quietly rots',
+      'Uptime and form monitoring — I find out before your customers do',
+      'Backups checked, not just assumed',
+      'A person to call who already knows how your system works',
+    ],
+  },
+];

@@ -2,73 +2,88 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
-import Mark from './Mark';
-import { Menu, Close } from './Icons';
+import { useEffect, useState } from 'react';
+import Wordmark from './Wordmark';
+import CursorToggle from './CursorToggle';
 import { site, nav } from '../site';
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
+  const [stuck, setStuck] = useState(false);
   const pathname = usePathname();
+
   const isActive = (href) =>
     href === '/' ? pathname === '/' : pathname.startsWith(href);
 
+  useEffect(() => {
+    const onScroll = () => setStuck(window.scrollY > 40);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // the overlay covers the page, so stop the page behind it scrolling
+  useEffect(() => {
+    document.documentElement.style.overflow = open ? 'hidden' : '';
+    return () => {
+      document.documentElement.style.overflow = '';
+    };
+  }, [open]);
+
+  useEffect(() => setOpen(false), [pathname]);
+
   return (
-    <header className="nav">
-      <div className="container">
-        <div className="nav__inner">
-          <Link href="/" className="logo" onClick={() => setOpen(false)}>
-            <Mark />
-            {site.name}
-          </Link>
-
-          <nav className="nav__links">
-            {nav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={isActive(item.href) ? 'is-active' : undefined}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-
-          <div className="nav__cta">
-            <a className="nav__phone" href={site.phoneHref}>
-              {site.phone}
-            </a>
-            <Link className="btn btn--primary" href="/contact/">
-              Start a project
+    <>
+      <header className={`nav${stuck ? ' is-stuck' : ''}`}>
+        <div className="container">
+          <div className="nav__inner">
+            <Link href="/" className="logo" aria-label={site.name}>
+              <Wordmark binary className="logo__wm" />
             </Link>
-            <button
-              type="button"
-              className="nav__toggle"
-              aria-label={open ? 'Close menu' : 'Open menu'}
-              aria-expanded={open}
-              onClick={() => setOpen((v) => !v)}
-            >
-              {open ? <Close /> : <Menu />}
-            </button>
+
+            <nav className="nav__links">
+              {nav.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={isActive(item.href) ? 'is-active' : undefined}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+
+            <div className="nav__right">
+              <a className="nav__phone" href={site.phoneHref}>
+                {site.phone}
+              </a>
+              <CursorToggle />
+              <Link className="btn" href="/contact/">
+                Start a project
+              </Link>
+              <button
+                type="button"
+                className={`nav__burger${open ? ' is-open' : ''}`}
+                aria-label={open ? 'Close menu' : 'Open menu'}
+                aria-expanded={open}
+                onClick={() => setOpen((v) => !v)}
+              >
+                <i />
+                <i />
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </header>
 
-      <div className={`nav__mobile${open ? ' is-open' : ''}`}>
-        <div className="container">
-          {nav.map((item) => (
-            <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
-              {item.label}
-            </Link>
-          ))}
-          <Link href="/contact/" onClick={() => setOpen(false)}>
-            Contact
+      <div className={`nav__overlay${open ? ' is-open' : ''}`}>
+        {nav.map((item) => (
+          <Link key={item.href} href={item.href}>
+            {item.label}
           </Link>
-          <a href={site.phoneHref} onClick={() => setOpen(false)}>
-            {site.phone}
-          </a>
-        </div>
+        ))}
+        <Link href="/contact/">Contact</Link>
       </div>
-    </header>
+    </>
   );
 }

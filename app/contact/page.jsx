@@ -1,5 +1,5 @@
 import ContactForm from '../components/ContactForm';
-import { Mail, Phone, Pin } from '../components/Icons';
+import SplitText from '../components/SplitText';
 import { site } from '../site';
 
 export const metadata = {
@@ -11,64 +11,57 @@ export const metadata = {
 
 export default function Contact() {
   return (
-    <section className="section" style={{ paddingTop: 76 }}>
+    <section className="section glow glow--ochre" style={{ paddingTop: 200 }}>
       <div className="container">
         <div className="section-head">
-          <p className="eyebrow">Contact</p>
-          <h2>Tell me what needs building.</h2>
-          <p className="lead">
-            The more you can say about what your business actually does, the
-            more useful my first reply will be. There&rsquo;s no pitch waiting on
-            the other end of this — worst case, you get a straight answer about
+          <p className="eyebrow reveal">Contact</p>
+          <h2 className="kinetic">
+            <SplitText text="Tell me what" />
+            <SplitText text="needs building." start={12} />
+          </h2>
+          <p className="lead reveal" style={{ '--d': '160ms' }}>
+            The more you can say about what your business actually does, the more
+            useful my first reply will be. There&rsquo;s no pitch waiting on the
+            other end of this — worst case, you get a straight answer about
             whether custom software is even the right call.
           </p>
         </div>
 
-        <div className="contact-grid">
-          <ContactForm />
-
+        <div className="split">
           <div>
-            <div className="contact-card">
-              <div className="contact-line">
-                <Phone />
-                <div>
-                  <strong>Phone</strong>
-                  <a href={site.phoneHref}>{site.phone}</a>
-                </div>
-              </div>
-              <div className="contact-line">
-                <Mail />
-                <div>
-                  <strong>Email</strong>
-                  <a href={`mailto:${site.email}`}>{site.email}</a>
-                </div>
-              </div>
-              <div className="contact-line">
-                <Pin />
-                <div>
-                  <strong>Where</strong>
-                  <span>{site.location}</span>
-                </div>
-              </div>
+            <div className="contact-line reveal">
+              <strong>Phone</strong>
+              <a href={site.phoneHref}>{site.phone}</a>
+            </div>
+            <div className="contact-line reveal" style={{ '--d': '90ms' }}>
+              <strong>Email</strong>
+              <a href={`mailto:${site.email}`}>{site.email}</a>
+            </div>
+            <div className="contact-line reveal" style={{ '--d': '180ms' }}>
+              <strong>Where</strong>
+              <span>{site.location}</span>
             </div>
 
-            <div className="card" style={{ marginTop: 22 }}>
-              <h3>What happens next</h3>
-              <ol className="checks" style={{ counterReset: 'none' }}>
-                <li>
-                  <span style={{ color: 'var(--terracotta)', fontWeight: 700 }}>1.</span>
-                  I reply within one business day, usually with questions.
-                </li>
-                <li>
-                  <span style={{ color: 'var(--terracotta)', fontWeight: 700 }}>2.</span>
-                  A short call — 30 minutes, no charge — to understand the work.
-                </li>
-                <li>
-                  <span style={{ color: 'var(--terracotta)', fontWeight: 700 }}>3.</span>
-                  A written scope and fixed price. You decide from there.
-                </li>
-              </ol>
+            <div style={{ marginTop: 54 }}>
+              <p className="eyebrow reveal" style={{ marginBottom: 26 }}>
+                What happens next
+              </p>
+              <ul className="checks">
+                {[
+                  'I reply within one business day, usually with questions.',
+                  'A short call — 30 minutes, no charge — to understand the work.',
+                  'A written scope and fixed price. You decide from there.',
+                ].map((s, i) => (
+                  <li className="reveal" style={{ '--d': `${i * 90}ms` }} key={s}>
+                    {s}
+                  </li>
+                ))}
+              </ul>
             </div>
+          </div>
+
+          <div className="reveal">
+            <ContactForm />
           </div>
         </div>
       </div>

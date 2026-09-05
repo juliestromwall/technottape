@@ -53,3 +53,105 @@
   form with mailto fallback, sitemap/robots/favicon, verified in Chromium at
   1440px and 390px. Fixed low-contrast step text on the dark process band and a
   wrapping logo in the mobile nav.
+
+## Immersive redesign (branch: `redesign-immersive`)
+
+| Piece | Location | Description |
+|---|---|---|
+| Design system | `app/globals.css` | Dark system on near-black `#08080a`; brand accents lifted for a dark ground; uppercase display type; grain + vignette overlay |
+| HeroCanvas | `app/components/HeroCanvas.jsx` | three.js `InstancedMesh` grid (one draw call). Idle wave, pointer displacement with colour bloom, scroll tilt/recede. Falls back to nothing if WebGL is unavailable; static single frame under reduced motion |
+| SmoothScroll | `app/components/SmoothScroll.jsx` | Lenis inertia scrolling; intercepts in-page anchors; disabled under reduced motion |
+| Cursor | `app/components/Cursor.jsx` | Glowing ochre core (tracks exactly) + difference-blended ring (lags) + 5-dot comet trail, so the pointer is easy to find on a near-black page. Ring fills and shows a contextual label over interactive targets — Call / Email / Send / Type / View / Read / More / Open, overridable per element with `data-cursor`. Shrinks on mousedown. Fine pointers only |
+| CursorToggle | `app/components/CursorToggle.jsx` | Nav button that switches back to the system cursor; persisted in localStorage, shared with the cursor via `app/cursor-pref.js`. The escape hatch for anyone who dislikes custom cursors |
+| Motion | `app/components/Motion.jsx` | One IntersectionObserver for every `.reveal` / `.kinetic` on the page; re-runs per route |
+| SplitText | `app/components/SplitText.jsx` | Server component splitting a line into per-character spans for the staggered reveal; real text in the HTML |
+| Nav | `app/components/Nav.jsx` | Fixed, blurs and shrinks on scroll; full-screen clip-path overlay menu on mobile |
+
+**Robustness:** an inline pre-paint script adds `js-motion` to `<html>`, and only
+that class arms the hidden state. With JS off or broken, every page renders as
+plain readable content instead of blank. Verified: 183–548 words of visible copy
+per page with JavaScript disabled.
+
+## Portrait frame (About)
+
+`.media-wrap` / `.media` in `app/globals.css`. The photo sits in a frame with
+24px rounded corners, a 1px border, and a deep shadow. A sage outline offset
+22px behind it supplies the depth; a soft top-left sheen makes it read as a
+physical object. On hover the photo lifts 6px, the shadow deepens, and the
+offset outline slides in to 12px and warms to ochre.
+
+The image is full colour at all times — no grayscale treatment.
+
+## Interactive sections (replacing the numbered boxes)
+
+Four sections previously used the same numbered-cell pattern. Each now has its
+own treatment, and all are keyboard accessible:
+
+| Component | Where | Behaviour |
+|---|---|---|
+| `Accordion.jsx` | Home problems, Services pricing, About principles | One panel open at a time; real `<button>` with `aria-expanded`/`aria-controls`; height animates via `grid-template-rows: 0fr→1fr` |
+| `PillarPicker.jsx` | Home "what I do" | Tablist of the four pillars; switches on hover, click, focus, and arrow keys; panel cross-fades |
+| `Stepper.jsx` | Home process | Dots on a rail that draws left-to-right on scroll; hovering a step fills its dot |
+| `SwapList.jsx` | Home "off paper" | before → after rows; the "before" strikes through on scroll and on hover |
+| `NodeCanvas.jsx` | Home "off paper" backdrop | Second WebGL scene — drifting nodes that link when close and lean toward the pointer. Deliberately a different idea from the hero's block grid |
+
+Numbers now appear only on the Work index, where an index genuinely reads as
+numbered. Checklists use a dash rule instead of `01/02/03`.
+
+**No-JS:** every accordion body and all four pillar panels render visible;
+collapsing is armed only by `html.js-motion`. Verified at 1022 words on the
+home page with JavaScript disabled.
+
+## Positioning
+
+`app/pillars.js` is the single source for Sort / Build / Launch / Support —
+home and `/services` both render from it. **Sort** covers workflow mapping,
+SOPs, and bottleneck consulting; **Launch** now carries the secure-cloud,
+encryption, backup, and access-control story. The home page has an "Off paper"
+section aimed at businesses that have never used anything formal.
+
+## Kinetic heading mask (bug fix)
+
+The reveal mask originally sat on `.k-line` with `overflow: hidden`, and each
+character translated down 105% of its own height. That works only while a line
+occupies exactly one visual row. When a line wrapped to two rows, the first
+row's characters slid down into the second row's space — still inside the box,
+so they were never clipped and were visible before the animation ran.
+
+The mask now sits on `.k-word` instead. A word never wraps inside itself, so
+each mask is always exactly one row tall and wrapping between words is
+harmless. Verified at 1512 / 1180 / 390px: 0 of 46 masks multi-row, and 0% of
+the first character visible 90ms after load.
+
+**Outline treatment:** the word "tape" is rendered stroke-only wherever it
+appears — the hero's second line, the "with tape." heading, and the footer
+wordmark. `.outline-text` carries it, with a heavier stroke at hero size.
+
+## Identity
+
+`app/components/Wordmark.jsx` — **TECH** (binary) · **NOT** (small caps) ·
+**TAPE** (hollow). Inline SVG rather than an image file, so the `<text>`
+inherits Inter from `next/font` and nothing depends on the font being
+installed anywhere else. Widths come from measured ratios (TECH 2.599em,
+TAPE 2.401em, NOT 2.397em at 30%), not estimates.
+
+`binary` is opt-in. Below roughly 30px tall the 1s and 0s stop being texture
+and become noise, so the nav renders it plain at 20px and the footer carries
+the binary at 46px. The bit pattern is a fixed constant, never random — a
+random fill would differ between server and client render and trip a
+hydration mismatch.
+
+### Icons
+
+The dense binary T is lovely at 48px and up and turns to a smudge in a 16px
+browser tab. So there are two artworks, declared by size in
+`app/layout.jsx`:
+
+| File | Used for | Artwork |
+|---|---|---|
+| `icon-16.png`, `icon-32.png` | browser tab | simplified T, bits knocked out of the stem |
+| `icon-48.png`, `icon-binary.svg` | larger contexts | dense binary T |
+| `apple-icon.png` (180px) | phone home screen | dense binary T |
+| `icon-512.png` | social / PWA | dense binary T |
+
+Sources live in `logo/favicon/`, generated by `logo/build7.py`.

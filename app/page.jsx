@@ -1,130 +1,136 @@
 import Link from 'next/link';
 import CtaBand from './components/CtaBand';
-import { Arrow, Build, Check, Launch, Support } from './components/Icons';
+import HeroCanvas from './components/HeroCanvas';
+import NodeCanvas from './components/NodeCanvas';
+import SplitText from './components/SplitText';
+import Accordion from './components/Accordion';
+import PillarPicker from './components/PillarPicker';
+import Stepper from './components/Stepper';
+import SwapList from './components/SwapList';
+import { Arrow } from './components/Icons';
+import { pillars } from './pillars';
 import { site } from './site';
 
 export const metadata = {
   title: `${site.name} — ${site.tagline}`,
   description:
-    'Custom websites and software for small business, from a developer in Minneapolis. One person builds it, launches it, and keeps it running — no agency handoffs, no duct tape.',
+    'Custom websites, software, and workflow help for small businesses in Minneapolis. Sorting out how the work flows, writing the SOPs, getting you off paper and into secure cloud storage — then building the tools to match.',
   alternates: { canonical: '/' },
 };
 
-const services = [
+const problems = [
   {
-    icon: <Build />,
-    tint: 'sage',
-    title: 'Build',
-    kicker: 'Sites, apps & tools',
-    body: 'A website that brings in work, or the internal tool your team has been running out of a spreadsheet. Built around what your business actually does, instead of bent to fit a template.',
+    accent: 'var(--sage)',
+    title: 'Nobody owns it',
+    body: 'Whoever built it stopped replying. Every small change is a project now, and nobody left can tell you how any of it works.',
   },
   {
-    icon: <Launch />,
-    tint: 'ochre',
-    title: 'Launch',
-    kicker: 'Hosting & go-live',
-    body: 'Domains, DNS, email, hosting, certificates — the boring half that sinks most projects. I run the whole cutover, so nothing goes dark on the day you switch.',
+    accent: 'var(--ochre)',
+    title: 'It doesn’t fit how you work',
+    body: 'Software that does 70% of the job, so your team does the other 30% by hand. Every day. Forever. The workaround becomes the process, and then nobody remembers why.',
   },
   {
-    icon: <Support />,
-    tint: 'terracotta',
-    title: 'Support',
-    kicker: 'Monthly updates',
-    body: "Software's never finished. Changes and fixes come from the person who built the thing, so you're not re-explaining your business to a new developer every year.",
+    accent: 'var(--terracotta)',
+    title: 'It quietly breaks',
+    body: 'An expired certificate, a contact form that stopped sending, a domain nobody renewed. You find out when a customer tells you.',
   },
+  {
+    accent: 'var(--sage)',
+    title: 'It only exists in one place',
+    body: 'The customer list is in a notebook. The job history is in a filing cabinet. How it all actually works lives in one person’s head — and they are on holiday.',
+  },
+];
+
+const offPaper = [
+  { before: 'In a notebook', after: 'Searchable in seconds' },
+  { before: 'On one laptop', after: 'Backed up off-site, automatically' },
+  { before: 'Whoever remembers', after: 'Written down so anyone can follow it' },
+  { before: 'Emailed spreadsheets', after: 'One version, with who-sees-what' },
+  { before: 'A filing cabinet', after: 'Encrypted, with access you control' },
 ];
 
 const steps = [
   {
-    num: 'Step 01',
+    accent: 'var(--sage)',
     title: 'We talk about the actual problem',
-    body: "Not features — the thing costing you hours or customers. Sometimes the honest answer is that you don't need custom software, and I'll say so.",
+    body: 'Not features — the thing costing you hours or customers. Sometimes the honest answer is that you don’t need custom software, and I’ll say so.',
   },
   {
-    num: 'Step 02',
+    accent: 'var(--ochre)',
     title: 'You get a fixed scope and price',
     body: 'What gets built, what it costs, and when it lands — in writing, before any work starts. No hourly meter running in the background.',
   },
   {
-    num: 'Step 03',
+    accent: 'var(--terracotta)',
     title: 'It ships, and it keeps working',
-    body: "I launch it, make sure it holds up in the real world, and stay reachable afterwards. You don't get handed a login and wished luck.",
+    body: 'I launch it, make sure it holds up in the real world, and stay reachable afterwards. You don’t get handed a login and wished luck.',
   },
 ];
 
 export default function Home() {
   return (
     <>
+      {/* ---------- hero ---------- */}
       <section className="hero">
+        <HeroCanvas />
         <div className="container">
-          <div className="hero__inner">
-            <div>
-              <span className="pill">
-                <span className="pill__dot" />
-                Taking on new projects
-              </span>
-              <h1>
-                Software that holds.
-                <br />
-                <span className="grad-text">Not held together.</span>
-              </h1>
-              <p className="lead">
-                I build custom websites and software for small businesses — then
-                launch them and keep them running. Based in Minneapolis, working
-                with clients anywhere. You deal with me, not an account manager.
-              </p>
-              <div className="btn-row">
-                <Link className="btn btn--primary" href="/contact/">
-                  Start a project <Arrow />
-                </Link>
-                <Link className="btn btn--ghost" href="/services/">
-                  What I build
-                </Link>
-              </div>
-            </div>
+          <span className="hero__status reveal">
+            <i />
+            Taking on new projects
+          </span>
 
-            <div className="showcase">
-              <div className="showcase__body">
-                <div className="showcase__row">
-                  <span className="showcase__tick" style={{ background: 'var(--sage)' }}>
-                    <Check size={14} />
-                  </span>
-                  <span>
-                    Built
-                    <small>Sites, apps &amp; internal tools</small>
-                  </span>
-                </div>
-                <div className="showcase__row">
-                  <span className="showcase__tick" style={{ background: 'var(--ochre)' }}>
-                    <Check size={14} />
-                  </span>
-                  <span>
-                    Launched
-                    <small>Domains, hosting &amp; go-live</small>
-                  </span>
-                </div>
-                <div className="showcase__row">
-                  <span className="showcase__tick" style={{ background: 'var(--terracotta)' }}>
-                    <Check size={14} />
-                  </span>
-                  <span>
-                    Supported
-                    <small>Monthly updates and fixes</small>
-                  </span>
-                </div>
-              </div>
+          <h1 className="hero__title kinetic">
+            <SplitText text="Software" />
+            <SplitText text="that holds." start={9} />
+            <SplitText
+              text="Ditch the tape."
+              start={22}
+              className="outline-text hero-sub"
+            />
+          </h1>
+
+          <div className="hero__foot">
+            <p className="lead reveal" style={{ '--d': '400ms' }}>
+              I sort out how your business actually works, then build the
+              websites and software to match — and keep them running. Based in
+              Minneapolis, working with clients anywhere. You deal with me, not
+              an account manager.
+            </p>
+            <div className="scroll-cue reveal" style={{ '--d': '560ms' }}>
+              Scroll
+              <span />
             </div>
           </div>
         </div>
       </section>
 
-      {/* the problem */}
-      <section className="section section--paper">
+      {/* ---------- marquee ---------- */}
+      <div className="marquee" aria-hidden="true">
+        <div className="marquee__track">
+          <span>Sorted</span>
+          <span>Built</span>
+          <span>Launched</span>
+          <span>Supported</span>
+        </div>
+        <div className="marquee__track">
+          <span>Sorted</span>
+          <span>Built</span>
+          <span>Launched</span>
+          <span>Supported</span>
+        </div>
+      </div>
+
+      {/* ---------- the problem ---------- */}
+      <section className="section glow glow--sage">
         <div className="container">
-          <div className="section-head center">
-            <p className="eyebrow">Why the name</p>
-            <h2>Most small-business tech is held together with tape.</h2>
-            <p className="lead">
+          <div className="section-head">
+            <h2 className="kinetic">
+              <SplitText text="Most of the technology" />
+              <SplitText text="small businesses run on" start={22} />
+              <SplitText text="is held together" start={45} />
+              <SplitText text="with tape." start={62} className="outline-text" />
+            </h2>
+            <p className="lead reveal" style={{ '--d': '160ms' }}>
               A site someone&rsquo;s nephew built in 2019. A spreadsheet doing
               the job of a database. Three tools that don&rsquo;t talk to each
               other, and a person whose real job is copying between them. It
@@ -132,56 +138,26 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid--3">
-            <div className="card tint-sage">
-              <h3>Nobody owns it</h3>
-              <p>
-                Whoever built it stopped replying. Every small change is a
-                project now, and nobody left can tell you how any of it works.
-              </p>
-            </div>
-            <div className="card tint-ochre">
-              <h3>It doesn&rsquo;t fit</h3>
-              <p>
-                Software that does 70% of the job, so your team does the other
-                30% by hand. Every day. Forever.
-              </p>
-            </div>
-            <div className="card tint-terracotta">
-              <h3>It quietly breaks</h3>
-              <p>
-                An expired certificate, a contact form that stopped sending, a
-                domain nobody renewed. You find out when a customer tells you.
-              </p>
-            </div>
-          </div>
+          <Accordion items={problems} idPrefix="problem" />
         </div>
       </section>
 
-      {/* services */}
-      <section className="section">
+      {/* ---------- what I do ---------- */}
+      <section className="section section--edge glow glow--ochre">
         <div className="container">
           <div className="section-head">
-            <p className="eyebrow">What I do</p>
-            <h2>Built, launched, and supported.</h2>
-            <p className="lead">
-              Three things, done properly, by the same person. Take all three, or
+            <p className="eyebrow reveal">What I do</p>
+            <h2 className="kinetic">
+              <SplitText text="Sorted, built," />
+              <SplitText text="launched, supported." start={14} />
+            </h2>
+            <p className="lead reveal" style={{ '--d': '160ms' }}>
+              Four things, done properly, by the same person. Take all four, or
               just the part you&rsquo;re stuck on.
             </p>
           </div>
 
-          <div className="grid grid--3">
-            {services.map((s) => (
-              <div className="card card--lift" key={s.title}>
-                <span className={`icon-badge icon-badge--${s.tint}`}>{s.icon}</span>
-                <h3>{s.title}</h3>
-                <p style={{ color: 'var(--ink-faint)', fontSize: 14, marginTop: 6 }}>
-                  {s.kicker}
-                </p>
-                <p>{s.body}</p>
-              </div>
-            ))}
-          </div>
+          <PillarPicker pillars={pillars} />
 
           <div className="btn-row">
             <Link className="textlink" href="/services/">
@@ -191,60 +167,90 @@ export default function Home() {
         </div>
       </section>
 
-      {/* process */}
-      <section className="section section--dark">
+      {/* ---------- off paper, into the cloud ---------- */}
+      <section className="section section--edge scene">
+        <NodeCanvas />
         <div className="container">
           <div className="section-head">
-            <p className="eyebrow">How it goes</p>
-            <h2>No mystery, no surprise invoice.</h2>
+            <p className="eyebrow reveal">Off paper</p>
+            <h2 className="kinetic">
+              <SplitText text="Paper doesn’t" />
+              <SplitText text="back itself up." start={13} />
+            </h2>
+            <p className="lead reveal" style={{ '--d': '160ms' }}>
+              If the customer list is in a notebook, the job history is in a
+              filing cabinet, and the only copy of anything sits on one laptop,
+              you are one theft, flood, or dead hard drive from starting over.
+              Getting all of that into the cloud properly — encrypted, backed
+              up, and locked down so only the right people see it — is often the
+              most valuable thing I do for a business.
+            </p>
           </div>
 
-          <div className="steps">
-            {steps.map((s) => (
-              <div className="step" key={s.num}>
-                <div className="step__num">{s.num}</div>
-                <h3>{s.title}</h3>
-                <p>{s.body}</p>
-              </div>
-            ))}
-          </div>
+          <SwapList rows={offPaper} />
+
+          <p className="lead reveal" style={{ marginTop: 46 }}>
+            None of this requires you to become a technical person. That is the
+            entire point of hiring one.
+          </p>
         </div>
       </section>
 
-      {/* proof */}
-      <section className="section section--paper">
+      {/* ---------- process ---------- */}
+      <section className="section section--edge glow glow--terra">
         <div className="container">
-          <div className="about-grid">
+          <div className="section-head">
+            <p className="eyebrow reveal">How it goes</p>
+            <h2 className="kinetic">
+              <SplitText text="No mystery," />
+              <SplitText text="no surprise invoice." start={11} />
+            </h2>
+          </div>
+
+          <Stepper steps={steps} />
+        </div>
+      </section>
+
+      {/* ---------- proof ---------- */}
+      <section className="section section--edge glow glow--duo">
+        <div className="container">
+          <div className="split split--sticky">
             <div>
-              <p className="eyebrow">Who you get</p>
-              <h2>One person, who has built this before.</h2>
+              <p className="eyebrow reveal">Who you get</p>
+              <h2 className="kinetic" style={{ marginTop: 30 }}>
+                <SplitText text="One person," />
+                <SplitText text="who has built" start={11} />
+                <SplitText text="this before." start={24} />
+              </h2>
             </div>
-            <div className="prose">
-              <p>
+            <div>
+              <p className="lead reveal">
                 I&rsquo;m {site.owner}. I&rsquo;ve spent my career as a product
                 manager and builder taking software from nothing to live — in
                 healthcare, in industries where compliance is not optional, and
                 for founders running a real business out of a spreadsheet.
               </p>
-              <p>
+              <p className="lead reveal" style={{ '--d': '120ms', marginTop: 24 }}>
                 So I&rsquo;m as comfortable working out what should be built as I
                 am building it — usually the difference between software that
                 gets used and software that gets quietly abandoned.
               </p>
-              <ul className="checks">
-                <li>
-                  <Check /> Patient-facing platforms handling medical records and
+
+              <ul className="checks" style={{ marginTop: 46 }}>
+                <li className="reveal">
+                  Patient-facing platforms handling medical records and
                   HIPAA-regulated data
                 </li>
-                <li>
-                  <Check /> A commission-tracking SaaS product founded, built,
-                  and run end to end
+                <li className="reveal" style={{ '--d': '90ms' }}>
+                  A commission-tracking SaaS product founded, built, and run end
+                  to end
                 </li>
-                <li>
-                  <Check /> Case management systems that replaced spreadsheets
-                  for teams of coordinators
+                <li className="reveal" style={{ '--d': '180ms' }}>
+                  Case management systems that replaced spreadsheets for teams of
+                  coordinators
                 </li>
               </ul>
+
               <div className="btn-row">
                 <Link className="textlink" href="/work/">
                   See the work <Arrow />

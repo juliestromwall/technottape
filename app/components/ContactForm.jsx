@@ -83,7 +83,7 @@ export default function ContactForm() {
 
   return (
     <form className="form" onSubmit={onSubmit}>
-      <div className="field--half-row">
+      <div className="field field--row">
         <div className="field">
           <label htmlFor="name">Your name</label>
           <input id="name" name="name" value={values.name} onChange={update} required />
@@ -94,7 +94,7 @@ export default function ContactForm() {
         </div>
       </div>
 
-      <div className="field--half-row">
+      <div className="field field--row">
         <div className="field">
           <label htmlFor="email">Email</label>
           <input
@@ -144,7 +144,7 @@ export default function ContactForm() {
         <input id="company_website" name="company_website" tabIndex={-1} autoComplete="off" />
       </div>
 
-      <button className="btn btn--primary" type="submit" disabled={status.state === 'sending'}>
+      <button className="btn btn--fill" type="submit" style={{ marginTop: 34 }} disabled={status.state === 'sending'}>
         {status.state === 'sending' ? 'Sending…' : 'Send it'} <Arrow />
       </button>
 

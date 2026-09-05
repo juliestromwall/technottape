@@ -1,112 +1,83 @@
 import Link from 'next/link';
 import CtaBand from '../components/CtaBand';
-import { Arrow, Build, Check, Launch, Support } from '../components/Icons';
+import SplitText from '../components/SplitText';
+import Accordion from '../components/Accordion';
+import { Arrow } from '../components/Icons';
+import { pillars } from '../pillars';
 
 export const metadata = {
   title: 'Services',
   description:
-    'Build, Launch, and Support — custom websites, web apps, and internal tools for small business, plus the hosting cutover and the ongoing maintenance afterwards.',
+    'Sort, Build, Launch, Support — workflow and SOP consulting, custom websites and internal tools, secure cloud hosting and go-live, and ongoing monthly support for small businesses.',
   alternates: { canonical: '/services/' },
 };
 
-const detail = [
+const pricing = [
   {
-    id: 'build',
-    icon: <Build />,
-    tint: 'sage',
-    title: 'Build',
-    kicker: 'Sites, apps & tools',
-    lead: 'A marketing site that brings in work, a web app your customers log into, or the internal tool that finally kills the spreadsheet.',
-    items: [
-      'Marketing and brochure sites that load fast and read well on a phone',
-      'Web applications with logins, roles, and real data behind them',
-      'Internal tools — job tracking, scheduling, quoting, reporting',
-      'Replacing a spreadsheet or paper process with something that scales',
-      'Integrations between the tools you already pay for',
-      'Fixing or finishing a project another developer walked away from',
-    ],
+    accent: 'var(--sage)',
+    title: 'A scope, in writing',
+    body: 'What is being built, what is not, and what it costs — before you commit to anything. If the work changes, we agree the change before it happens, not on the invoice.',
   },
   {
-    id: 'launch',
-    icon: <Launch />,
-    tint: 'ochre',
-    title: 'Launch',
-    kicker: 'Hosting & go-live',
-    lead: 'Domains, DNS, mail, certificates, redirects. I run the cutover myself, so switch day is uneventful — which is the highest compliment you can pay a launch.',
-    items: [
-      'Domain registration, transfers, and renewals you will not forget',
-      'DNS migration with your email records protected through the move',
-      'Hosting set up on infrastructure that costs a few dollars a month, not a few hundred',
-      'HTTPS certificates, redirects, and the old site retired cleanly',
-      'Google Workspace mail, SPF, DKIM, and DMARC so your email lands in inboxes',
-      'Analytics and search console, so you can see what is actually happening',
-    ],
+    accent: 'var(--ochre)',
+    title: 'No hourly meter',
+    body: 'You shouldn’t have to think twice about asking a question. Projects are priced whole, not by the hour, so a phone call never costs you anything.',
   },
   {
-    id: 'support',
-    icon: <Support />,
-    tint: 'terracotta',
-    title: 'Support',
-    kicker: 'Monthly updates',
-    lead: "The work doesn't stop at launch. A flat monthly arrangement keeps the person who built it on hand for when something needs to change.",
-    items: [
-      'Content, copy, and photo updates as your business changes',
-      'New features and adjustments as you learn what customers want',
-      'Dependency and security updates so nothing quietly rots',
-      'Uptime and form monitoring — I find out before your customers do',
-      'Backups and a tested way to restore them',
-      'A person to call who already knows how your system works',
-    ],
+    accent: 'var(--terracotta)',
+    title: 'Support is monthly',
+    body: 'A flat monthly rate after launch. Cancel it whenever — you keep the code, the accounts, and the data either way. Nothing here is designed to trap you.',
   },
 ];
+
+const slug = (t) => t.toLowerCase();
 
 export default function Services() {
   return (
     <>
-      <section className="section section--tight" style={{ paddingTop: 76 }}>
+      <section className="section glow glow--ochre" style={{ paddingTop: 200 }}>
         <div className="container">
-          <div className="section-head">
-            <p className="eyebrow">Services</p>
-            <h2>Three things, done properly.</h2>
-            <p className="lead">
-              Most people take all three — the same person building, launching,
-              and maintaining it is the whole point. But if only one of them is
-              your problem right now, start there.
+          <div className="section-head" style={{ marginBottom: 0 }}>
+            <p className="eyebrow reveal">Services</p>
+            <h2 className="kinetic">
+              <SplitText text="Four things," />
+              <SplitText text="done properly." start={12} />
+            </h2>
+            <p className="lead reveal" style={{ '--d': '160ms' }}>
+              Most people take all four — the same person sorting, building,
+              launching, and maintaining it is the whole point. But if only one
+              of them is your problem right now, start there.
             </p>
-          </div>
-
-          <div className="grid grid--3">
-            {detail.map((s) => (
-              <a className="card card--lift" href={`#${s.id}`} key={s.id}>
-                <span className={`icon-badge icon-badge--${s.tint}`}>{s.icon}</span>
-                <h3>{s.title}</h3>
-                <p>{s.kicker}</p>
-              </a>
-            ))}
+            <p className="lead reveal" style={{ '--d': '240ms', marginTop: 22 }}>
+              And if you have never used anything more formal than a notebook
+              and a group chat, that is a completely normal place to start from.
+              Most of my favourite work begins there.
+            </p>
           </div>
         </div>
       </section>
 
-      {detail.map((s, i) => (
+      {pillars.map((s) => (
         <section
-          className={`section${i % 2 === 0 ? ' section--paper' : ''}`}
-          id={s.id}
-          key={s.id}
-          style={{ scrollMarginTop: 80 }}
+          className="section section--edge"
+          id={slug(s.title)}
+          key={s.title}
+          style={{ scrollMarginTop: 110 }}
         >
           <div className="container">
-            <div className="about-grid">
+            <div className="split split--sticky">
               <div>
-                <span className={`icon-badge icon-badge--${s.tint}`}>{s.icon}</span>
-                <p className="eyebrow">{s.kicker}</p>
-                <h2>{s.title}</h2>
+                <p className="eyebrow reveal">{s.kicker}</p>
+                <h2 className="kinetic" style={{ marginTop: 30, color: s.accent }}>
+                  <SplitText text={s.title} />
+                </h2>
               </div>
-              <div className="prose">
-                <p className="lead">{s.lead}</p>
-                <ul className="checks">
-                  {s.items.map((item) => (
-                    <li key={item}>
-                      <Check /> {item}
+              <div>
+                <p className="lead reveal">{s.lead}</p>
+                <ul className="checks" style={{ marginTop: 44 }}>
+                  {s.items.map((item, i) => (
+                    <li className="reveal" style={{ '--d': `${i * 70}ms` }} key={item}>
+                      {item}
                     </li>
                   ))}
                 </ul>
@@ -116,44 +87,24 @@ export default function Services() {
         </section>
       ))}
 
-      {/* pricing posture */}
-      <section className="section section--dark">
+      <section className="section section--edge glow glow--duo">
         <div className="container">
           <div className="section-head">
-            <p className="eyebrow">What it costs</p>
-            <h2>Fixed price, agreed before anything starts.</h2>
-            <p className="lead">
+            <p className="eyebrow reveal">What it costs</p>
+            <h2 className="kinetic">
+              <SplitText text="Fixed price, agreed" />
+              <SplitText text="before anything starts." start={19} />
+            </h2>
+            <p className="lead reveal" style={{ '--d': '160ms' }}>
               Every project is different, so any price list here would be a
               polite fiction. What I can tell you is how the number gets set.
             </p>
           </div>
 
-          <div className="grid grid--3">
-            <div className="card" style={{ background: 'var(--dark-2)', borderColor: 'var(--dark-line)' }}>
-              <h3 style={{ color: 'var(--on-dark)' }}>A scope, in writing</h3>
-              <p style={{ color: 'var(--on-dark-soft)' }}>
-                What is being built, what is not, and what it costs — before you
-                commit to anything.
-              </p>
-            </div>
-            <div className="card" style={{ background: 'var(--dark-2)', borderColor: 'var(--dark-line)' }}>
-              <h3 style={{ color: 'var(--on-dark)' }}>No hourly meter</h3>
-              <p style={{ color: 'var(--on-dark-soft)' }}>
-                You shouldn&rsquo;t have to think twice about asking a question.
-                Projects are priced whole, not by the hour.
-              </p>
-            </div>
-            <div className="card" style={{ background: 'var(--dark-2)', borderColor: 'var(--dark-line)' }}>
-              <h3 style={{ color: 'var(--on-dark)' }}>Support is monthly</h3>
-              <p style={{ color: 'var(--on-dark-soft)' }}>
-                A flat monthly rate after launch. Cancel it whenever — you keep
-                the code and the accounts either way.
-              </p>
-            </div>
-          </div>
+          <Accordion items={pricing} idPrefix="pricing" />
 
           <div className="btn-row">
-            <Link className="btn btn--primary" href="/contact/">
+            <Link className="btn btn--fill" href="/contact/">
               Get a price for your project <Arrow />
             </Link>
           </div>

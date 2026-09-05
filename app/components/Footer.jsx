@@ -1,17 +1,18 @@
 import Link from 'next/link';
-import Mark from './Mark';
+import Wordmark from './Wordmark';
 import { site, nav } from '../site';
 
 export default function Footer() {
   return (
     <footer className="footer">
       <div className="container">
-        <div className="footer__top">
+        <div className="footer__big" aria-hidden="true">
+          Ditch the tape.
+        </div>
+
+        <div className="footer__cols">
           <div>
-            <span className="logo logo--light">
-              <Mark />
-              {site.name}
-            </span>
+            <Wordmark binary className="footer__wm" title={site.name} />
             <p className="footer__blurb">
               Websites and software for small businesses — built properly,
               launched carefully, and looked after once they&rsquo;re live.
@@ -38,7 +39,7 @@ export default function Footer() {
 
         <div className="footer__bottom">
           <span>
-            &copy; {new Date().getFullYear()} {site.name}. All rights reserved.
+            &copy; {new Date().getFullYear()} {site.name}
           </span>
           <span>{site.owner}</span>
         </div>
