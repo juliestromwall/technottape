@@ -71,3 +71,13 @@
 that class arms the hidden state. With JS off or broken, every page renders as
 plain readable content instead of blank. Verified: 183–548 words of visible copy
 per page with JavaScript disabled.
+
+## Portrait frame (About)
+
+`.media-wrap` / `.media` in `app/globals.css`. The photo sits in a frame with
+24px rounded corners, a 1px border, and a deep shadow. A sage outline offset
+22px behind it supplies the depth; a soft top-left sheen makes it read as a
+physical object. On hover the photo lifts 6px, the shadow deepens, and the
+offset outline slides in to 12px and warms to ochre.
+
+The image is full colour at all times — no grayscale treatment.

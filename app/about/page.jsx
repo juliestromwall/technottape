@@ -51,19 +51,10 @@ export default function About() {
           </div>
 
           <div className="split">
-            <div className="media reveal">
-              <Image src="/julie.jpg" alt={site.owner} width={800} height={800} priority />
-              <div className="media__swap">
-                <Image
-                  src="/family.jpg"
-                  alt={`${site.owner} with her family at the Minnesota State Fair`}
-                  width={1400}
-                  height={1400}
-                />
+            <div className="media-wrap reveal">
+              <div className="media">
+                <Image src="/julie.jpg" alt={site.owner} width={800} height={800} priority />
               </div>
-              <span className="media__hint" aria-hidden="true">
-                Hover
-              </span>
             </div>
             <div>
               <p className="lead reveal">
