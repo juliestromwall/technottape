@@ -35,7 +35,7 @@ const slug = (t) => t.toLowerCase();
 export default function Services() {
   return (
     <>
-      <section className="section" style={{ paddingTop: 200 }}>
+      <section className="section glow glow--ochre" style={{ paddingTop: 200 }}>
         <div className="container">
           <div className="section-head" style={{ marginBottom: 0 }}>
             <p className="eyebrow reveal">Services</p>
@@ -87,7 +87,7 @@ export default function Services() {
         </section>
       ))}
 
-      <section className="section section--edge">
+      <section className="section section--edge glow glow--duo">
         <div className="container">
           <div className="section-head">
             <p className="eyebrow reveal">What it costs</p>

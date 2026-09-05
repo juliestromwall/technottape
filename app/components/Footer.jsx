@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="footer">
       <div className="container">
         <div className="footer__big" aria-hidden="true">
-          Not Tape
+          Ditch the Tape
         </div>
 
         <div className="footer__cols">

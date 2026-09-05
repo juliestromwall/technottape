@@ -44,7 +44,7 @@ const projects = [
 export default function Work() {
   return (
     <>
-      <section className="section" style={{ paddingTop: 200 }}>
+      <section className="section glow glow--sage" style={{ paddingTop: 200 }}>
         <div className="container">
           <div className="section-head">
             <p className="eyebrow reveal">Work</p>
@@ -83,7 +83,7 @@ export default function Work() {
         </div>
       </section>
 
-      <section className="section section--edge">
+      <section className="section section--edge glow glow--terra">
         <div className="container">
           <div className="split">
             <div>

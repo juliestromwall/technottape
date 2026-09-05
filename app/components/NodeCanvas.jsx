@@ -52,10 +52,10 @@ export default function NodeCanvas({ count = 88, className = 'scene__canvas' }) 
     const home = new Float32Array(N * 3);
     const colors = new Float32Array(N * 3);
 
-    const SAGE = new THREE.Color('#6f9a73');
-    const OCHRE = new THREE.Color('#d9a94a');
-    const TERRA = new THREE.Color('#cf7350');
-    const PALE = new THREE.Color('#5a544c');
+    const SAGE = new THREE.Color('#7fae83');
+    const OCHRE = new THREE.Color('#e6b455');
+    const TERRA = new THREE.Color('#e07f57');
+    const PALE = new THREE.Color('#6d6355');
     const c = new THREE.Color();
 
     for (let i = 0; i < N; i++) {
@@ -69,7 +69,7 @@ export default function NodeCanvas({ count = 88, className = 'scene__canvas' }) 
         i * 3
       );
       const r = Math.random();
-      c.copy(r > 0.93 ? TERRA : r > 0.84 ? OCHRE : r > 0.7 ? SAGE : PALE);
+      c.copy(r > 0.78 ? TERRA : r > 0.56 ? OCHRE : r > 0.32 ? SAGE : PALE);
       colors.set([c.r, c.g, c.b], i * 3);
     }
 
@@ -184,9 +184,9 @@ export default function NodeCanvas({ count = 88, className = 'scene__canvas' }) 
           linePos[o + 5] = pos[j3 + 2];
 
           const g = Math.min(1, f);
-          lineCol[o] = 0.42 * g + near * 0.5;
-          lineCol[o + 1] = 0.44 * g + near * 0.36;
-          lineCol[o + 2] = 0.4 * g + near * 0.12;
+          lineCol[o] = 0.52 * g + near * 0.55;
+          lineCol[o + 1] = 0.44 * g + near * 0.38;
+          lineCol[o + 2] = 0.3 * g + near * 0.14;
           lineCol[o + 3] = lineCol[o];
           lineCol[o + 4] = lineCol[o + 1];
           lineCol[o + 5] = lineCol[o + 2];

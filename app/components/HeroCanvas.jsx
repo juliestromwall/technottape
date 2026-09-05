@@ -62,10 +62,10 @@ export default function HeroCanvas() {
     const mesh = new THREE.InstancedMesh(geometry, material, COUNT);
     mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
 
-    const SAGE = new THREE.Color('#6f9a73');
-    const OCHRE = new THREE.Color('#d9a94a');
-    const TERRA = new THREE.Color('#cf7350');
-    const BASE = new THREE.Color('#1b1b21');
+    const SAGE = new THREE.Color('#7fae83');
+    const OCHRE = new THREE.Color('#e6b455');
+    const TERRA = new THREE.Color('#e07f57');
+    const BASE = new THREE.Color('#2a221d');
 
     const home = new Float32Array(COUNT * 2); // x, y of each block
     const tint = [];
@@ -83,7 +83,7 @@ export default function HeroCanvas() {
         // a few blocks carry brand colour; the rest stay near-black
         const roll = Math.sin(c * 12.9898 + r * 78.233) * 43758.5453;
         const f = roll - Math.floor(roll);
-        const accent = f > 0.955 ? TERRA : f > 0.9 ? OCHRE : f > 0.83 ? SAGE : null;
+        const accent = f > 0.87 ? TERRA : f > 0.74 ? OCHRE : f > 0.58 ? SAGE : null;
         tint.push(accent);
 
         col.copy(accent ? accent : BASE);
@@ -191,8 +191,8 @@ export default function HeroCanvas() {
 
         // brand blocks glow as the pointer nears; plain ones lift toward slate
         const accent = tint[i];
-        if (accent) col.copy(accent).multiplyScalar(0.55 + push * 1.5);
-        else col.copy(BASE).lerp(SAGE, push * 0.5);
+        if (accent) col.copy(accent).multiplyScalar(0.72 + push * 1.5);
+        else col.copy(BASE).lerp(OCHRE, push * 0.55);
         mesh.setColorAt(i, col);
       }
       mesh.instanceMatrix.needsUpdate = true;

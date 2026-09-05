@@ -117,7 +117,7 @@ export default function Home() {
       </div>
 
       {/* ---------- the problem ---------- */}
-      <section className="section">
+      <section className="section glow glow--sage">
         <div className="container">
           <div className="section-head">
             <h2 className="kinetic">
@@ -139,7 +139,7 @@ export default function Home() {
       </section>
 
       {/* ---------- what I do ---------- */}
-      <section className="section section--edge">
+      <section className="section section--edge glow glow--ochre">
         <div className="container">
           <div className="section-head">
             <p className="eyebrow reveal">What I do</p>
@@ -193,7 +193,7 @@ export default function Home() {
       </section>
 
       {/* ---------- process ---------- */}
-      <section className="section section--edge">
+      <section className="section section--edge glow glow--terra">
         <div className="container">
           <div className="section-head">
             <p className="eyebrow reveal">How it goes</p>
@@ -208,7 +208,7 @@ export default function Home() {
       </section>
 
       {/* ---------- proof ---------- */}
-      <section className="section section--edge">
+      <section className="section section--edge glow glow--duo">
         <div className="container">
           <div className="split split--sticky">
             <div>

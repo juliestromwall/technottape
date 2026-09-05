@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function Contact() {
   return (
-    <section className="section" style={{ paddingTop: 200 }}>
+    <section className="section glow glow--ochre" style={{ paddingTop: 200 }}>
       <div className="container">
         <div className="section-head">
           <p className="eyebrow reveal">Contact</p>

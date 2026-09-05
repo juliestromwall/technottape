@@ -37,7 +37,7 @@ const principles = [
 export default function About() {
   return (
     <>
-      <section className="section" style={{ paddingTop: 200 }}>
+      <section className="section glow glow--duo" style={{ paddingTop: 200 }}>
         <div className="container">
           <div className="section-head">
             <p className="eyebrow reveal">About</p>
