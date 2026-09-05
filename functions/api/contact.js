@@ -105,7 +105,19 @@ export async function onRequest({ request, env }) {
   if (!res.ok) {
     const detail = await res.text().catch(() => '');
     console.error('Resend failed', res.status, detail);
-    return json({ error: 'Could not send just now.' }, 502);
+    // Surface what Resend actually said. Its errors describe configuration
+    // (unverified domain, bad key, wrong from-address) and contain no secret,
+    // and without this the only clue is a generic 502 behind the edge.
+    let reason = detail;
+    try {
+      reason = JSON.parse(detail)?.message || detail;
+    } catch {
+      /* not JSON — use the raw text */
+    }
+    return json(
+      { error: 'Could not send just now.', upstream: res.status, reason },
+      502
+    );
   }
 
   return json({ ok: true });
