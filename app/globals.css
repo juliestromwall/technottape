@@ -167,8 +167,18 @@ p { color: var(--text-soft); }
 
 /* ---------- kinetic type ---------- */
 .kinetic { display: block; }
-.kinetic .k-line { display: block; overflow: hidden; }
-.kinetic .k-word { display: inline-block; white-space: nowrap; }
+.kinetic .k-line { display: block; }
+/* The mask lives on the WORD, not the line. A line that wraps to two visual
+   rows would otherwise let the first row's characters slide down into the
+   second row's space and stay visible instead of being clipped. */
+.kinetic .k-word {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
 /* Characters render visible by default so the copy survives with JS off;
    html.js-motion is what hides them so they can animate in. */
 .kinetic .k-char {
@@ -177,7 +187,7 @@ p { color: var(--text-soft); }
   transition-delay: calc(var(--i) * 22ms);
   will-change: transform;
 }
-.js-motion .kinetic .k-char { transform: translateY(105%) rotate(4deg); }
+.js-motion .kinetic .k-char { transform: translateY(125%) rotate(4deg); }
 .js-motion .kinetic.is-in .k-char { transform: none; }
 
 /* ---------- reveal ----------
@@ -396,7 +406,13 @@ p { color: var(--text-soft); }
 .hero .container { position: relative; z-index: 2; }
 
 .hero__title { margin-bottom: 46px; }
-.hero__title .l2 { color: var(--text-faint); }
+/* second phrase: outlined and stepped down, so the solid line leads and the
+   hollow one answers it */
+.hero__title .hero-sub {
+  font-size: 0.72em;
+  margin-top: 0.1em;
+}
+.hero__title .outline-text { -webkit-text-stroke-width: 2px; }
 
 .hero__foot {
   display: grid;

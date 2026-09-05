@@ -82,7 +82,11 @@ export default function Home() {
           <h1 className="hero__title kinetic">
             <SplitText text="Software" />
             <SplitText text="that holds." start={9} />
-            <SplitText text="Not held together." start={22} className="l2" />
+            <SplitText
+              text="Ditch the tape."
+              start={22}
+              className="outline-text hero-sub"
+            />
           </h1>
 
           <div className="hero__foot">

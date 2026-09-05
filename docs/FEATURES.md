@@ -109,3 +109,20 @@ home and `/services` both render from it. **Sort** covers workflow mapping,
 SOPs, and bottleneck consulting; **Launch** now carries the secure-cloud,
 encryption, backup, and access-control story. The home page has an "Off paper"
 section aimed at businesses that have never used anything formal.
+
+## Kinetic heading mask (bug fix)
+
+The reveal mask originally sat on `.k-line` with `overflow: hidden`, and each
+character translated down 105% of its own height. That works only while a line
+occupies exactly one visual row. When a line wrapped to two rows, the first
+row's characters slid down into the second row's space — still inside the box,
+so they were never clipped and were visible before the animation ran.
+
+The mask now sits on `.k-word` instead. A word never wraps inside itself, so
+each mask is always exactly one row tall and wrapping between words is
+harmless. Verified at 1512 / 1180 / 390px: 0 of 46 masks multi-row, and 0% of
+the first character visible 90ms after load.
+
+**Outline treatment:** the word "tape" is rendered stroke-only wherever it
+appears — the hero's second line, the "with tape." heading, and the footer
+wordmark. `.outline-text` carries it, with a heavier stroke at hero size.
