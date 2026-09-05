@@ -876,19 +876,17 @@ p { color: var(--text-soft); }
 
 /* ---------- footer ---------- */
 .footer { border-top: 1px solid var(--line); padding: 90px 0 40px; }
-/* Same treatment as the hero's second line — outline only — but smaller and
-   dialled right down so it reads as texture in the background. */
+/* The phrase is drawn as overlapping strips of tape (TapedPhrase.jsx), not
+   set in a font — its strokes use currentColor, so `color` dials it down to
+   background texture the way the text-stroke used to. */
 .footer__big {
-  font-size: clamp(38px, 9.5vw, 124px);
-  line-height: 0.88;
-  text-transform: uppercase;
-  font-weight: 600;
-  letter-spacing: -0.05em;
+  width: 100%;
+  max-width: 1060px;
   margin-bottom: 72px;
+  color: rgba(173, 164, 150, 0.19);
   user-select: none;
-  color: transparent;
-  -webkit-text-stroke: 1.6px rgba(173, 164, 150, 0.19);
 }
+
 .footer__cols {
   display: grid;
   grid-template-columns: 1.6fr 1fr 1fr;

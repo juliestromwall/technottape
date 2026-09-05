@@ -133,3 +133,31 @@ Recommended: **N** or **O**.
 Type widths are measured, not estimated: TECH w800 @-0.045 = 2.599em,
 TAPE w700 @-0.045 = 2.401em, NOT w600 @+0.08 = 2.397em, not = 1.814em.
 The render asserts nothing overflows its viewBox.
+
+## Round six — TAPE drawn as tape
+
+`build8.py` → `explore-tape.html` → `preview-tape.png`, SVGs in `svg8/`.
+`build9.py` extends the alphabet and writes `app/components/TapedPhrase.jsx`.
+
+The A and P read as "taped" because their crossbar and bowl cross another
+stroke and leave a visible box. T and E, as plain outlined glyphs, cross
+nothing — which is why they looked flat next to them. Every letter is now
+built from **overlapping strips**, so all of them get that detail.
+
+Three treatments in `svg8/`: square overlaps (A), a hand-applied tilt (B), and
+a heavier line for small sizes (C).
+
+The alphabet extends to D, I, C, H and a full stop, which spells the footer
+phrase. Live in the footer via `TapedPhrase.jsx`.
+
+### Three bugs worth remembering
+
+1. **Collapsed counters.** D and P inset their inner bowl from the *outer
+   bowl's* left edge rather than the stem's, so the counter came out about one
+   unit wide and drew a sliver. Both letters were widened and the inset fixed.
+2. **C read as an E.** Built from a stem plus two squared arms, the outlines
+   formed a grid indistinguishable from E. It is now a single open ring path.
+3. **JSX needs camelCase.** The generated component emitted `stroke-width`,
+   which React rejects with a console error on every render. The generator now
+   converts to `strokeWidth` for the component while the standalone `.svg`
+   keeps kebab-case.
