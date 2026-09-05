@@ -53,7 +53,6 @@ export default function Contact() {
                   'A written scope and fixed price. You decide from there.',
                 ].map((s, i) => (
                   <li className="reveal" style={{ '--d': `${i * 90}ms` }} key={s}>
-                    <span>{String(i + 1).padStart(2, '0')}</span>
                     {s}
                   </li>
                 ))}

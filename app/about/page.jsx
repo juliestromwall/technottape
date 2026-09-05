@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Accordion from '../components/Accordion';
 import CtaBand from '../components/CtaBand';
 import SplitText from '../components/SplitText';
 import { site } from '../site';
@@ -12,25 +13,21 @@ export const metadata = {
 
 const principles = [
   {
-    n: '01',
     accent: 'var(--sage)',
     title: 'I will talk you out of it',
     body: 'If an off-the-shelf tool does the job for $30 a month, that’s what I’ll tell you. It costs me a project and saves you a lot, and it’s why people come back.',
   },
   {
-    n: '02',
     accent: 'var(--ochre)',
     title: 'You own everything',
     body: 'The code, the domain, the hosting accounts, the data. All of it is registered to you, and you can walk away with it at any point without asking me for permission.',
   },
   {
-    n: '03',
     accent: 'var(--terracotta)',
     title: 'Plain language, always',
     body: 'You should never leave a conversation with me unsure what was decided. If I use a word you didn’t ask for, that’s my failure, not yours.',
   },
   {
-    n: '04',
     accent: 'var(--sage)',
     title: 'One person, all the way through',
     body: 'The person on the first call is the person writing the code, and the person answering the phone two years later. Nothing gets lost in the handoff because there isn’t one.',
@@ -64,10 +61,10 @@ export default function About() {
                 software should exist to make that process stop hurting.
               </p>
               <p className="lead reveal" style={{ '--d': '110ms', marginTop: 24 }}>
-                That order matters. A lot of small-business tech fails not because
-                it was built badly but because nobody asked the right questions
-                first — so a business ends up paying for something that solves a
-                problem it doesn&rsquo;t have.
+                That order matters. A lot of the technology small businesses
+                buy fails not because it was built badly, but because nobody
+                asked the right questions first — so a business ends up paying
+                for something that solves a problem it doesn&rsquo;t have.
               </p>
               <p className="lead reveal" style={{ '--d': '220ms', marginTop: 24 }}>
                 I named this Tech Not Tape because of what I kept finding when I
@@ -92,16 +89,7 @@ export default function About() {
             </h2>
           </div>
 
-          <div className="grid grid--2">
-            {principles.map((p, i) => (
-              <div className="cell reveal" style={{ '--d': `${i * 100}ms` }} key={p.n}>
-                <span className="cell__bar" style={{ '--accent': p.accent }} />
-                <span className="cell__num">{p.n}</span>
-                <h3>{p.title}</h3>
-                <p>{p.body}</p>
-              </div>
-            ))}
-          </div>
+          <Accordion items={principles} idPrefix="principle" />
         </div>
       </section>
 
@@ -122,11 +110,12 @@ export default function About() {
                   'Product management and delivery across healthcare and other compliance-heavy industries',
                   'Founded, built, and ran a SaaS product end to end — including the invoicing, the support, and the bad days',
                   'Discovery work: sitting with teams to map how a business actually runs before proposing software',
+                  'Writing SOPs and mapping workflows so a process survives the person who invented it',
+                  'Moving businesses off paper and onto secure, backed-up cloud storage with real access control',
                   'Full-stack build and launch, including the domain, DNS, mail, and hosting side most developers hand off',
                   'Based in Minneapolis, working with clients anywhere in the US',
                 ].map((item, i) => (
                   <li className="reveal" style={{ '--d': `${i * 80}ms` }} key={item}>
-                    <span>{String(i + 1).padStart(2, '0')}</span>
                     {item}
                   </li>
                 ))}

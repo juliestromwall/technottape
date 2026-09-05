@@ -81,3 +81,31 @@ physical object. On hover the photo lifts 6px, the shadow deepens, and the
 offset outline slides in to 12px and warms to ochre.
 
 The image is full colour at all times — no grayscale treatment.
+
+## Interactive sections (replacing the numbered boxes)
+
+Four sections previously used the same numbered-cell pattern. Each now has its
+own treatment, and all are keyboard accessible:
+
+| Component | Where | Behaviour |
+|---|---|---|
+| `Accordion.jsx` | Home problems, Services pricing, About principles | One panel open at a time; real `<button>` with `aria-expanded`/`aria-controls`; height animates via `grid-template-rows: 0fr→1fr` |
+| `PillarPicker.jsx` | Home "what I do" | Tablist of the four pillars; switches on hover, click, focus, and arrow keys; panel cross-fades |
+| `Stepper.jsx` | Home process | Dots on a rail that draws left-to-right on scroll; hovering a step fills its dot |
+| `SwapList.jsx` | Home "off paper" | before → after rows; the "before" strikes through on scroll and on hover |
+| `NodeCanvas.jsx` | Home "off paper" backdrop | Second WebGL scene — drifting nodes that link when close and lean toward the pointer. Deliberately a different idea from the hero's block grid |
+
+Numbers now appear only on the Work index, where an index genuinely reads as
+numbered. Checklists use a dash rule instead of `01/02/03`.
+
+**No-JS:** every accordion body and all four pillar panels render visible;
+collapsing is armed only by `html.js-motion`. Verified at 1022 words on the
+home page with JavaScript disabled.
+
+## Positioning
+
+`app/pillars.js` is the single source for Sort / Build / Launch / Support —
+home and `/services` both render from it. **Sort** covers workflow mapping,
+SOPs, and bottleneck consulting; **Launch** now carries the secure-cloud,
+encryption, backup, and access-control story. The home page has an "Off paper"
+section aimed at businesses that have never used anything formal.

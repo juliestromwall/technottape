@@ -16,7 +16,7 @@ export default function Motion() {
 
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const targets = document.querySelectorAll('.reveal, .reveal-line, .kinetic');
+    const targets = document.querySelectorAll('.reveal, .reveal-line, .kinetic, .stepper, .swap__row');
 
     if (reduced) {
       targets.forEach((el) => el.classList.add('is-in'));
