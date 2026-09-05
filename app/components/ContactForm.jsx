@@ -20,8 +20,8 @@ export default function ContactForm() {
   const update = (e) =>
     setValues((v) => ({ ...v, [e.target.name]: e.target.value }));
 
-  // No Formspree ID configured yet, so fall back to opening a pre-filled email
-  // rather than silently swallowing the enquiry.
+  // Fallback if the endpoint is unreachable or misconfigured: open a
+  // pre-filled email rather than silently swallowing the enquiry.
   const sendByMail = () => {
     const body = [
       `Name: ${values.name}`,
@@ -52,21 +52,16 @@ export default function ContactForm() {
     // Honeypot — real people leave this empty.
     if (e.target.company_website?.value) return;
 
-    if (!site.formspreeId) {
-      sendByMail();
-      return;
-    }
-
     setStatus({ state: 'sending', message: '' });
 
     try {
-      const res = await fetch(`https://formspree.io/f/${site.formspreeId}`, {
+      const res = await fetch(site.contactEndpoint, {
         method: 'POST',
         headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
       });
 
-      if (!res.ok) throw new Error('Request failed');
+      if (!res.ok) throw new Error(`Request failed (${res.status})`);
 
       setValues(initial);
       setStatus({
@@ -74,10 +69,8 @@ export default function ContactForm() {
         message: "Thanks — that came through. I'll get back to you within one business day.",
       });
     } catch {
-      setStatus({
-        state: 'err',
-        message: `That didn't send. Email ${site.email} or call ${site.phone} and I'll pick it up from there.`,
-      });
+      // never lose an enquiry — hand it to their mail client instead
+      sendByMail();
     }
   };
 

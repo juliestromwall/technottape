@@ -11,9 +11,10 @@ export const site = {
   owner: 'Julie Stromwall',
   location: 'Minneapolis, MN — working with clients anywhere in the US',
 
-  // Paste the Formspree form ID here (the bit after /f/ in the endpoint URL).
-  // While it's empty the contact form falls back to opening a pre-filled email.
-  formspreeId: '',
+  // Enquiries POST here — a Cloudflare Pages Function that calls Resend with
+  // a key held as an encrypted env var, never in this repo. If it fails for
+  // any reason the form falls back to opening a pre-filled email.
+  contactEndpoint: '/api/contact',
 };
 
 export const nav = [

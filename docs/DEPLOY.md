@@ -87,17 +87,45 @@ curl -sI https://technottape.com | head -1
 Then open the live site and check: all five pages load, HTTPS is valid, `www`
 redirects to the apex (or vice versa), and the contact form submits.
 
-## 4. Turn on the contact form
+## 4. Turn on the contact form (Resend)
 
-The form has **no backend** until this is done. Right now, submitting opens the
-visitor's mail client with the fields pre-filled — functional, but it loses
-anyone without a configured mail app.
+The site is a static export, so there is no server to hold a secret. Enquiries
+POST to `/api/contact`, a **Cloudflare Pages Function** (`functions/api/contact.js`)
+that runs at the edge and calls Resend. The API key lives as an encrypted
+environment variable in the Pages dashboard and never enters the repo.
 
-1. Create a free account at [formspree.io](https://formspree.io).
-2. New form → point it at `hello@juliestromwall.com`.
-3. Copy the form ID (the part after `/f/` in the endpoint URL).
-4. Paste it into `formspreeId` in `app/site.js`, commit, push.
-5. Submit a real test enquiry and confirm it arrives.
+### Verify the sending domain in Resend
+
+1. resend.com -> **Domains** -> **Add Domain** -> `technottape.com`
+2. Resend shows DNS records (a DKIM `TXT`, an SPF `TXT`, and an `MX` on the
+   `send` subdomain). Add each one in Cloudflare -> DNS -> **Add record**.
+   Leave the DKIM/SPF records **DNS only** (grey cloud), not proxied.
+3. Wait for Resend to show the domain **Verified**.
+
+This is sending only. Receiving mail at `@technottape.com` is separate — see
+"Still open" below.
+
+### Environment variables
+
+Pages project -> **Settings** -> **Environment variables** -> Production:
+
+| Name | Value | Type |
+|---|---|---|
+| `RESEND_API_KEY` | the `re_...` key from Resend | **Secret** (encrypt) |
+| `CONTACT_TO` | where enquiries land, e.g. `hello@juliestromwall.com` | Plain text |
+| `CONTACT_FROM` | verified sender, e.g. `Tech Not Tape <hello@technottape.com>` | Plain text |
+
+Redeploy after adding them — env vars are read at request time, but the
+deployment must exist under the same environment.
+
+### Behaviour
+
+- Honeypot field filled -> returns 200 and sends nothing, so bots stop retrying
+- Missing name/email/message, or a malformed address -> 400 with a readable message
+- Env vars missing -> 503, and the form falls back to opening a pre-filled email
+- `reply_to` is set to the enquirer, so replying from your inbox reaches them
+
+All of these paths were verified locally with `npx wrangler pages dev out`.
 
 ## Still open
 
