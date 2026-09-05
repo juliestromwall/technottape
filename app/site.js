@@ -4,8 +4,8 @@ export const site = {
   domain: 'technottape.com',
   url: 'https://technottape.com',
   tagline: 'Custom websites & software for small business',
-  // Mail still lives on juliestromwall.com — technottape.com has no MX records yet.
-  email: 'hello@juliestromwall.com',
+  // technottape.com receives via a Google Workspace domain alias (MX -> smtp.google.com)
+  email: 'hello@technottape.com',
   phone: '970.333.4481',
   phoneHref: 'tel:+19703334481',
   owner: 'Julie Stromwall',

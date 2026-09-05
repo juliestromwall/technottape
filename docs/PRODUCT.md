@@ -76,5 +76,5 @@ is still around to change it later.
 | Thing | Value |
 |---|---|
 | Phone | 970.333.4481 |
-| Email | `hello@juliestromwall.com` — technottape.com has **no MX records** yet |
+| Email | `hello@technottape.com` — Google Workspace domain alias; MX `1 smtp.google.com` |
 | Location | Minneapolis, MN; clients anywhere in the US |

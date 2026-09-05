@@ -56,23 +56,31 @@ export default function About() {
             <div>
               <p className="lead reveal">
                 I build websites and software for small businesses. Before that I
-                spent years as a product manager, which mostly meant sitting with
-                people while they explained a process, and then working out what
-                software should exist to make that process stop hurting.
+                spent years as a product manager and managing teams, which mostly
+                meant sitting with someone while they explained how the work
+                actually gets done, then working out what should exist to make it
+                stop hurting.
               </p>
               <p className="lead reveal" style={{ '--d': '110ms', marginTop: 24 }}>
-                That order matters. A lot of the technology small businesses
-                buy fails not because it was built badly, but because nobody
-                asked the right questions first — so a business ends up paying
-                for something that solves a problem it doesn&rsquo;t have.
+                The part I like most is watching someone who has just told me
+                they&rsquo;re &ldquo;not a tech person&rdquo; work out what&rsquo;s
+                actually possible. Most people have been sold something
+                complicated, or made to feel slow for asking a question. Almost
+                always there was nothing wrong with them — nobody had bothered to
+                ask how they work.
               </p>
               <p className="lead reveal" style={{ '--d': '220ms', marginTop: 24 }}>
-                I named this Tech Not Tape because of what I kept finding when I
-                looked under the hood of small companies: things patched together,
-                patched again, and quietly costing somebody an hour a day. The
-                alternative is not fancier software. It is software that fits, and
-                someone who is still around to change it when your business
-                changes.
+                I&rsquo;m also drawn to the problems other people have given up
+                on. If you&rsquo;ve been told the thing you want can&rsquo;t be
+                done, or quoted something ridiculous to do it, that&rsquo;s the
+                conversation I want to have. In my experience
+                &ldquo;unsolvable&rdquo; usually means nobody has sat down and
+                looked at it properly yet.
+              </p>
+              <p className="lead reveal" style={{ '--d': '330ms', marginTop: 24 }}>
+                Away from work: I&rsquo;ve been a surrogate three times, I&rsquo;m
+                married with two teenagers, and we have two rescued dogs who
+                consider themselves additional children.
               </p>
             </div>
           </div>
@@ -108,6 +116,7 @@ export default function About() {
               <ul className="checks">
                 {[
                   'Product management and delivery across healthcare and other compliance-heavy industries',
+                  'Managing people and teams — hiring, coaching, and the unglamorous parts of running a group',
                   'Founded, built, and ran a SaaS product end to end — including the invoicing, the support, and the bad days',
                   'Discovery work: sitting with teams to map how a business actually runs before proposing software',
                   'Writing SOPs and mapping workflows so a process survives the person who invented it',
