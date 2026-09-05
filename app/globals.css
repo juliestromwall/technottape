@@ -1205,6 +1205,75 @@ p { color: var(--text-soft); }
   .cta { padding: 120px 0; }
 }
 
+/* ---------- the interactive sections on small screens ----------
+   These were added without mobile rules and kept their desktop grids: a
+   three-column stepper and a three-column before/after row on a phone. */
+@media (max-width: 900px) {
+  .pillars { grid-template-columns: 1fr; gap: 36px; }
+  .pillar { padding: 14px 0; }
+  .pillar__panel {
+    border-left: none;
+    border-top: 1px solid var(--line);
+    padding-left: 0;
+    padding-top: 30px;
+    min-height: 0;
+  }
+
+  /* stacked, so the horizontal rail is meaningless — dots run down the side */
+  .stepper { grid-template-columns: 1fr; gap: 38px; }
+  .stepper::before, .stepper__rail { display: none; }
+  .stp { padding-top: 0; padding-left: 32px; }
+  .stp::before { top: 5px; }
+
+  .swap__row { grid-template-columns: 1fr; gap: 6px; padding: 24px 0; }
+  .swap__row:hover { padding-left: 0; padding-right: 0; }
+  .swap__arrow { transform: rotate(90deg); }
+  .swap__row:hover .swap__arrow { transform: rotate(90deg) translateX(4px); }
+  .swap__before, .swap__after { font-size: 17px; }
+
+  .cta { padding: 96px 0; }
+  .section-head { margin-bottom: 52px; }
+}
+
+/* ---------- touch / small screens ----------
+   The nav was 429px wide inside a 390px viewport: logo + CTA + burger do not
+   fit. Rather than drop the CTA (it is the conversion), everything shrinks. */
+@media (max-width: 720px) {
+  .logo__wm { height: 20px; }
+  .nav__right { gap: 12px; }
+  .nav__right .btn {
+    padding: 12px 16px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    gap: 8px;
+  }
+  .nav__burger { width: 44px; height: 44px; }
+  .nav__burger i { left: 13px; width: 18px; }
+  .nav__burger i:nth-child(1) { top: 18px; }
+  .nav__burger i:nth-child(2) { top: 25px; }
+  .footer__wm { height: 38px; }
+}
+
+@media (max-width: 400px) {
+  /* the very small phones: the CTA becomes just "Start" */
+  .nav__right .btn { padding: 11px 13px; font-size: 9.5px; }
+}
+
+/* Apple and Google both put the minimum touch target at ~44px. Several links
+   were 23-25px tall. Desktop keeps its tighter spacing. */
+@media (hover: none), (pointer: coarse) {
+  .btn { min-height: 44px; }
+  .logo { padding: 12px 0; }
+  .textlink { padding-top: 12px; padding-bottom: 14px; }
+  .contact-line { padding-top: 18px; padding-bottom: 18px; }
+  .contact-line a { display: inline-block; padding: 10px 0; }
+  .footer__col a { padding: 12px 0; }
+  .nav__overlay a { padding: 16px 0; }
+  .acc__btn { padding: 26px 0; }
+  .pillar { padding: 18px 0; }
+  .marquee__track { animation-duration: 22s; }
+}
+
 /* ---------- reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
