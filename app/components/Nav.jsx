@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Mark from './Mark';
+import CursorToggle from './CursorToggle';
 import { site, nav } from '../site';
 
 export default function Nav() {
@@ -57,6 +58,7 @@ export default function Nav() {
               <a className="nav__phone" href={site.phoneHref}>
                 {site.phone}
               </a>
+              <CursorToggle />
               <Link className="btn" href="/contact/">
                 Start a project
               </Link>

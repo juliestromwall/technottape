@@ -61,7 +61,8 @@
 | Design system | `app/globals.css` | Dark system on near-black `#08080a`; brand accents lifted for a dark ground; uppercase display type; grain + vignette overlay |
 | HeroCanvas | `app/components/HeroCanvas.jsx` | three.js `InstancedMesh` grid (one draw call). Idle wave, pointer displacement with colour bloom, scroll tilt/recede. Falls back to nothing if WebGL is unavailable; static single frame under reduced motion |
 | SmoothScroll | `app/components/SmoothScroll.jsx` | Lenis inertia scrolling; intercepts in-page anchors; disabled under reduced motion |
-| Cursor | `app/components/Cursor.jsx` | Lerped dot + ring, `mix-blend-mode: difference`, expands over interactive targets. Only on fine pointers |
+| Cursor | `app/components/Cursor.jsx` | Glowing ochre core (tracks exactly) + difference-blended ring (lags) + 5-dot comet trail, so the pointer is easy to find on a near-black page. Ring fills and shows a contextual label over interactive targets — Call / Email / Send / Type / View / Read / More / Open, overridable per element with `data-cursor`. Shrinks on mousedown. Fine pointers only |
+| CursorToggle | `app/components/CursorToggle.jsx` | Nav button that switches back to the system cursor; persisted in localStorage, shared with the cursor via `app/cursor-pref.js`. The escape hatch for anyone who dislikes custom cursors |
 | Motion | `app/components/Motion.jsx` | One IntersectionObserver for every `.reveal` / `.kinetic` on the page; re-runs per route |
 | SplitText | `app/components/SplitText.jsx` | Server component splitting a line into per-character spans for the staggered reveal; real text in the HTML |
 | Nav | `app/components/Nav.jsx` | Fixed, blurs and shrinks on scroll; full-screen clip-path overlay menu on mobile |

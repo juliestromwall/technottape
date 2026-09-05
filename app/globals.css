@@ -195,42 +195,110 @@ p { color: var(--text-soft); }
 .js-motion .reveal-line { transform: scaleX(0); transform-origin: left; }
 .js-motion .reveal-line.is-in { transform: scaleX(1); }
 
-/* ---------- custom cursor ---------- */
-.cursor-dot, .cursor-ring {
+/* ---------- custom cursor ----------
+   Three parts: a glowing brand-coloured core that tracks exactly, a
+   difference-blended ring that lags behind (so it stays visible on any
+   ground), and a short comet trail that makes the pointer easy to find
+   when it moves. A contextual label fills the ring over interactive things.
+   The whole thing can be switched off — see CursorToggle. */
+
+.cursor-core,
+.cursor-ring,
+.cursor-trail,
+.cursor-label {
   position: fixed;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   pointer-events: none;
-  z-index: 300;
   border-radius: 999px;
-  mix-blend-mode: difference;
+  opacity: 0;
+  transition: opacity 0.25s ease;
 }
-.cursor-dot {
-  width: 6px; height: 6px;
-  background: #fff;
-  margin: -3px 0 0 -3px;
+.cursor-core.is-live,
+.cursor-ring.is-live,
+.cursor-trail.is-live { opacity: 1; }
+
+/* the bit that says exactly where the pointer is */
+.cursor-core {
+  z-index: 302;
+  width: 11px;
+  height: 11px;
+  margin: -5.5px 0 0 -5.5px;
+  background: var(--ochre);
+  box-shadow: 0 0 10px rgba(217, 169, 74, 0.95), 0 0 26px rgba(217, 169, 74, 0.5);
+  transition: opacity 0.25s ease, width 0.3s var(--ease), height 0.3s var(--ease),
+              margin 0.3s var(--ease);
 }
+.cursor-core.is-hot { width: 0; height: 0; margin: 0; }
+.cursor-core.is-down { width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; }
+
+/* difference blending keeps this readable on black, on white, and on the canvas */
 .cursor-ring {
-  width: 42px; height: 42px;
-  margin: -21px 0 0 -21px;
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  transition: width 0.42s var(--ease), height 0.42s var(--ease),
-              margin 0.42s var(--ease), background 0.42s var(--ease),
-              border-color 0.42s var(--ease), opacity 0.3s ease;
+  z-index: 301;
+  width: 44px;
+  height: 44px;
+  margin: -22px 0 0 -22px;
+  border: 2px solid #fff;
+  mix-blend-mode: difference;
+  transition: opacity 0.25s ease, width 0.45s var(--ease), height 0.45s var(--ease),
+              margin 0.45s var(--ease), background 0.45s var(--ease),
+              border-color 0.45s var(--ease);
 }
 .cursor-ring.is-hot {
-  width: 88px; height: 88px;
-  margin: -44px 0 0 -44px;
-  background: rgba(255, 255, 255, 0.92);
+  width: 92px;
+  height: 92px;
+  margin: -46px 0 0 -46px;
+  background: #fff;
   border-color: transparent;
 }
-.cursor-ring.is-hidden, .cursor-dot.is-hidden { opacity: 0; }
+.cursor-ring.is-down { width: 34px; height: 34px; margin: -17px 0 0 -17px; }
+
+.cursor-trail {
+  z-index: 300;
+  width: 7px;
+  height: 7px;
+  margin: -3.5px 0 0 -3.5px;
+  background: var(--ochre);
+}
+
+.cursor-label {
+  z-index: 303;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--void);
+  white-space: nowrap;
+  /* transform is written every frame by the RAF loop, so it must NOT be
+     transitioned here — the two fight and the label lags behind the ring. */
+  transition: opacity 0.3s var(--ease);
+}
+.cursor-label.is-on { opacity: 1; }
 
 @media (hover: hover) and (pointer: fine) {
-  body.has-cursor, body.has-cursor * { cursor: none !important; }
+  html.custom-cursor,
+  html.custom-cursor * { cursor: none !important; }
 }
 @media (hover: none), (pointer: coarse) {
-  .cursor-dot, .cursor-ring { display: none; }
+  .cursor-core, .cursor-ring, .cursor-trail, .cursor-label { display: none; }
 }
+
+/* ---------- cursor toggle ---------- */
+.cursor-toggle {
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  color: var(--text-soft);
+  cursor: pointer;
+  transition: color 0.35s var(--ease), border-color 0.35s var(--ease),
+              background 0.35s var(--ease);
+}
+.cursor-toggle:hover { color: var(--void); background: var(--text); border-color: var(--text); }
+.cursor-toggle[aria-pressed='false'] { color: var(--text-faint); }
+@media (hover: none), (pointer: coarse) { .cursor-toggle { display: none; } }
 
 /* ---------- buttons ---------- */
 .btn {
