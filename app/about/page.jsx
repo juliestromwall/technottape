@@ -64,10 +64,10 @@ export default function About() {
               <p className="lead reveal" style={{ '--d': '110ms', marginTop: 24 }}>
                 The part I like most is watching someone who has just told me
                 they&rsquo;re &ldquo;not a tech person&rdquo; work out what&rsquo;s
-                actually possible. Most people have been sold something
-                complicated, or made to feel slow for asking a question. Almost
-                always there was nothing wrong with them — nobody had bothered to
-                ask how they work.
+                actually possible. Usually they&rsquo;ve been handed tools built
+                for someone else&rsquo;s business, by people who never bothered to
+                ask how theirs works. Fix that, and the technology stops being the
+                hard part.
               </p>
               <p className="lead reveal" style={{ '--d': '220ms', marginTop: 24 }}>
                 I&rsquo;m also drawn to the problems other people have given up
