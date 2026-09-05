@@ -18,6 +18,24 @@ Static export → **Cloudflare Pages**, auto-deploying from `main`.
 the `juliestromwall.com` one. Nothing is live to break: the domain currently
 serves a parking page and receives no email.
 
+## Lock file: generate it with the same npm as the build
+
+The Cloudflare build runs `npm ci`, which refuses to install unless
+`package-lock.json` matches `package.json` exactly. Node 22 (from `.nvmrc`)
+ships **npm 10.x** there, and npm 10 and npm 11 resolve nested optional
+platform packages differently — an npm 11 lock records
+`@emnapi/core`/`@emnapi/runtime` at 1.10.0 where npm 10 expects 1.11.3, and
+the build fails with `Missing: @emnapi/runtime@... from lock file`.
+
+If you add or update a dependency on a machine running npm 11+, regenerate
+the lock the way the build will read it:
+
+```sh
+npx -y npm@10.9.2 install --package-lock-only
+npx -y npm@10.9.2 ci        # this is exactly what Cloudflare runs
+npm run build               # confirm it still builds
+```
+
 ## 1. Create the Pages project
 
 Cloudflare → **Workers & Pages** → **Create** → **Pages** → **Connect to Git** →
