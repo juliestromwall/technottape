@@ -131,7 +131,6 @@ export default function Home() {
       <section className="section">
         <div className="container">
           <div className="section-head">
-            <p className="eyebrow reveal">Why the name</p>
             <h2 className="kinetic">
               <SplitText text="Most small-business" />
               <SplitText text="tech is held together" start={19} />

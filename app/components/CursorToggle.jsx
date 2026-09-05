@@ -27,6 +27,7 @@ export default function CursorToggle() {
     <button
       type="button"
       className="cursor-toggle"
+      data-cursor="Cursor"
       onClick={toggle}
       aria-pressed={ready ? on : true}
       title={on ? 'Use your system cursor' : 'Use the custom cursor'}

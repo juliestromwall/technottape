@@ -4,14 +4,15 @@ import { useEffect } from 'react';
 import { CURSOR_EVENT, getCursorPref } from '../cursor-pref';
 
 // Most specific first — the first match wins.
+// Only genuinely interactive things belong here. Decorative blocks (.cell,
+// .media, and the non-link .row-item articles) hover-highlight but cannot be
+// clicked, so labelling them made the cursor promise something that isn't
+// there. The clickable service rows are plain <a>, so they match below.
 const LABELS = [
   ['a[href^="tel:"]', 'Call'],
   ['a[href^="mailto:"]', 'Email'],
   ['button[type="submit"]', 'Send'],
   ['input, textarea, select', 'Type'],
-  ['.media', 'View'],
-  ['.row-item', 'Read'],
-  ['.cell', 'More'],
   ['a, button', 'Open'],
 ];
 const HOT = LABELS.map(([sel]) => sel).join(', ');
