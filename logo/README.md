@@ -81,3 +81,25 @@ Fixed in this round: B and C positioned "TAPE"/"T" with a hand-computed x
 offset, which overlapped the preceding letters. They now use a single `<text>`
 with a `<tspan>`, so the text engine advances the pen and the glyphs cannot
 collide.
+
+## Round four — making TECH digital
+
+`build4.py` → `explore-4.html` → `preview-round4.png`, SVGs in `svg4/`.
+
+Extends the rule to all three words: **TECH digital · NOT solid · TAPE hollow.**
+
+| Direction | Idea | Read |
+|---|---|---|
+| G — Binary Fill | Letterforms filled with 1s and 0s | What was asked for, but it collapses to texture at header size |
+| H — Pixel | TECH from squares on a coarse grid | **Strongest.** Clearly digital, legible at every size |
+| I — Data Ribbon | Clean type, binary strip beneath | Restrained; the strip smudges when small |
+| J — Dissolve | Solid left, breaking into bits right | Best idea, but costs the H — reads "TEC:" small |
+| K — Zero Swap | The O in NOT becomes a zero | Most timeless; one character does the job |
+| L — Dot Matrix | LED panel, unlit dots included | Strong, slightly busier than H |
+
+Recommended: **H**, optionally combined with **K**'s zero.
+
+Fixed here: the canvas width was estimated rather than measured, so the E was
+clipped off TAPE in all six. "NOT TAPE" measures 4.626em in Inter 700 at
+-0.045em tracking; the build now uses that, and the render asserts no element
+overflows its viewBox.
