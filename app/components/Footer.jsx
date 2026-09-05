@@ -6,8 +6,7 @@ export default function Footer() {
     <footer className="footer">
       <div className="container">
         <div className="footer__big" aria-hidden="true">
-          <span className="footer__big-fill">Ditch the </span>
-          <span className="footer__big-outline">Tape</span>
+          Ditch the tape.
         </div>
 
         <div className="footer__cols">

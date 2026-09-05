@@ -51,3 +51,33 @@ where marks actually fail.
 **The site is untouched** — it still carries the original placeholder bar mark
 in `app/icon.svg` and `app/components/Mark.jsx`. Nothing gets swapped in until a
 direction is chosen.
+
+---
+
+## Round three — built from the site's own rule
+
+`build3.py` → `explore-3.html` → `preview-round3.png`, with SVGs in `svg3/`.
+
+The first two rounds failed because they were abstract symbols invented from
+nothing. This round takes the rule the site already uses and that Julie
+responded to: **substance is solid, tape is hollow.** The word "tape" is
+stroke-only in the hero, in the "with tape." heading, and in the footer.
+
+| Direction | Idea |
+|---|---|
+| A — Stacked Wordmark | TECH / NOT / TAPE in three tight lines, TAPE hollow |
+| B — Inline Wordmark | The same, horizontal, for the header and signatures |
+| C — TNT | Initials with the final T hollow |
+| D — The Strip | Solid block with a hollow strip laid across it |
+| E — Two Solid, One Hollow | The existing bar mark with the short bar outlined |
+| F — Hollow T | Hollow crossbar, solid stem |
+
+**Known constraint:** a stroke-only mark thins toward nothing below about
+24px. Whichever wordmark is chosen should be paired with a solid compact mark
+(C, E or F) for favicons and app icons. That is a normal two-part identity,
+not a compromise.
+
+Fixed in this round: B and C positioned "TAPE"/"T" with a hand-computed x
+offset, which overlapped the preceding letters. They now use a single `<text>`
+with a `<tspan>`, so the text engine advances the pen and the glyphs cannot
+collide.
