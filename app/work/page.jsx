@@ -1,12 +1,13 @@
 import Link from 'next/link';
 import CtaBand from '../components/CtaBand';
+import Testimonials from '../components/Testimonials';
 import SplitText from '../components/SplitText';
 import { Arrow } from '../components/Icons';
 
 export const metadata = {
   title: 'Work',
   description:
-    'Platforms, internal tools and websites built end to end — medical records review, commission tracking, a custom CRM, job estimating, production and distribution software, and small-business websites.',
+    'Platforms, internal tools and websites built end to end — medical records review, commission tracking, a custom CRM, job estimating, non-profit and distribution software, and small-business websites.',
   alternates: { canonical: '/work/' },
 };
 
@@ -15,49 +16,49 @@ const projects = [
     n: '01',
     meta: 'Healthcare · Platform',
     title: 'Medical records & review platform',
-    body: 'A platform for requesting, organising, and reviewing patient medical records, built for a workflow that had been running on email attachments and shared drives. Regulated data, real reviewers, real deadlines — which meant access control and auditability were part of the design from day one, not bolted on later.',
+    body: 'Regulated patient data, real reviewers, real deadlines — and it holds. A full platform for requesting, organising and reviewing medical records, replacing a process that lived in email attachments and shared drives. Access control and auditability were designed in from day one rather than bolted on when somebody asked. This is the least forgiving kind of software to get right, and it runs every day.',
     tags: ['Web application', 'HIPAA-regulated data', 'Document workflow', 'Role-based access'],
   },
   {
     n: '02',
     meta: 'SaaS · Founded and built',
     title: 'RepCommish — sales & commission tracking',
-    body: 'A commission tracking product for independent sales reps, founded and built from nothing. Reps were reconciling payouts across brands by hand in spreadsheets; RepCommish turned that into a dashboard that shows what was sold, what is owed, and what has actually been paid. Product decisions, build, launch, and support were all one job.',
+    body: 'Founded, designed, built, launched and supported by one person. Independent reps were reconciling payouts across multiple brands by hand in spreadsheets; RepCommish turned that into a dashboard showing what sold, what is owed, and what has actually been paid. Every decision was mine — the product, the code, the pricing, the support inbox, and the bad days.',
     tags: ['Product from 0→1', 'Dashboards', 'Multi-brand data', 'Subscription product'],
   },
   {
     n: '03',
     meta: 'Operations · Internal tool',
     title: 'Custom CRM system',
-    body: 'A CRM built around how one business actually works, rather than bending the business around an off-the-shelf tool. Contacts, stages, documents, tasks and ownership in one place, with each team seeing the view that matters to them. It replaced a stack of spreadsheets and calendar reminders with something everybody could trust.',
+    body: 'Built around how the business actually works, instead of forcing the business to bend around somebody else\u2019s software. Contacts, stages, documents, tasks and ownership in one place, with each team seeing the view that matters to them. It replaced a sprawl of spreadsheets and calendar reminders with a single source everyone trusts — the thing every off-the-shelf CRM had failed to do.',
     tags: ['Custom CRM', 'Pipeline stages', 'Task assignment', 'Admin tooling'],
   },
   {
     n: '04',
     meta: 'Trades · Estimating tool',
     title: 'Handyman estimating & quoting tool',
-    body: 'Software for pricing jobs: build an estimate from labour and materials, keep pricing consistent from one job to the next, and get a clean quote to the customer quickly instead of days later. The kind of tool that turns an evening of paperwork into a few minutes.',
+    body: 'Turns an evening of paperwork into a few minutes. Build an estimate from labour and materials, keep pricing consistent from one job to the next, and get a clean, professional quote to the customer while the job is still fresh. Quoting faster than everyone else is a quiet way to win more work, and this does exactly that.',
     tags: ['Estimating', 'Quoting', 'Pricing consistency', 'Field-friendly'],
   },
   {
     n: '05',
-    meta: 'Arts · Platform',
-    title: 'Theatre & production platform',
-    body: 'A platform for running productions — the people, the scheduling, and the many moving parts that otherwise live across a dozen spreadsheets, printouts and group chats. Built so everyone involved can see the same current version instead of last week&rsquo;s.',
-    tags: ['Scheduling', 'People & roles', 'Production workflow', 'Shared source of truth'],
+    meta: 'Non-profit · Platform',
+    title: 'Non-profit platform',
+    body: 'Software for a non-profit that needed to run on a great deal less admin than it had. People, scheduling, records and reporting — all the moving parts that otherwise scatter across a dozen spreadsheets, printouts and group chats — brought into one place everybody can see. Less time spent on the machinery, more spent on the actual mission.',
+    tags: ['Scheduling', 'People & records', 'Reporting', 'Shared source of truth'],
   },
   {
     n: '06',
     meta: 'Logistics · Platform',
     title: 'Distribution centre platform',
-    body: 'Software for a distribution operation: what has arrived, what is going out, and where everything sits in between. Replaces the paper and the memory of whoever has worked there longest with a record the whole team can check.',
+    body: 'What arrived, what is going out, and where everything sits in between. It replaces paper and the memory of whoever has worked there longest with a record the whole floor can check. Operations software has to survive a bad day with people shouting and a truck waiting — this was built for that, not for a demo.',
     tags: ['Inbound & outbound', 'Inventory visibility', 'Operations', 'Reporting'],
   },
   {
     n: '07',
     meta: 'Web · Ongoing',
     title: 'Websites for small businesses',
-    body: 'Marketing sites for small businesses across a range of trades and services. Fast on a phone, clear about what the business does, and easy to get in touch with — then looked after afterwards, so a change of hours or a new photo never needs a developer on standby.',
+    body: 'Site after site, across trades and services. Fast on a phone, honest about what the business does, and easy to get in touch with — no template smell, no page that takes eight seconds to load. Then looked after afterwards, so changing your hours or adding a photo never means waiting on a developer who has moved on.',
     tags: ['Marketing sites', 'Mobile-first', 'Hosting & launch', 'Ongoing support'],
   },
 ];
@@ -131,6 +132,8 @@ export default function Work() {
           </div>
         </div>
       </section>
+
+      <Testimonials />
 
       <CtaBand
         title="Want the detail behind any of these?"
