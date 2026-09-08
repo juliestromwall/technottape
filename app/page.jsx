@@ -238,8 +238,7 @@ export default function Home() {
 
               <ul className="checks" style={{ marginTop: 46 }}>
                 <li className="reveal">
-                  Patient-facing platforms handling medical records and
-                  HIPAA-regulated data
+                  Platforms handling sensitive, regulated data
                 </li>
                 <li className="reveal" style={{ '--d': '90ms' }}>
                   A commission-tracking SaaS product founded, built, and run end
