@@ -42,24 +42,38 @@ const projects = [
   },
   {
     n: '05',
+    meta: 'Platform · Booking',
+    title: 'Travel booking system',
+    body: 'Search, availability, booking and confirmation — the kind of system where the edge cases are the whole job. Dates that overlap, inventory that changes while somebody is mid-checkout, and a customer who needs a confirmation they can rely on. Built to hold up at the exact moment a real person is halfway through paying.',
+    tags: ['Search & availability', 'Booking flow', 'Payments', 'Confirmations'],
+  },
+  {
+    n: '06',
     meta: 'Platform · Non-profit',
     title: 'Non-profit platform',
     body: 'Software for a non-profit that needed to run on a great deal less admin than it had. People, scheduling, records and reporting — all the moving parts that otherwise scatter across a dozen spreadsheets, printouts and group chats — brought into one place everybody can see. Less time spent on the machinery, more spent on the actual mission.',
     tags: ['Scheduling', 'People & records', 'Reporting', 'Shared source of truth'],
   },
   {
-    n: '06',
+    n: '07',
     meta: 'Platform · Operations',
     title: 'Distribution center platform',
     body: 'What arrived, what is going out, and where everything sits in between. It replaces paper and the memory of whoever has worked there longest with a record the whole floor can check. Operations software has to survive a bad day with people shouting and a truck waiting — this was built for that, not for a demo.',
     tags: ['Inbound & outbound', 'Inventory visibility', 'Operations', 'Reporting'],
   },
   {
-    n: '07',
+    n: '08',
     meta: 'Websites · Ongoing',
     title: 'Websites for small businesses',
     body: 'Site after site, across trades and services. Fast on a phone, honest about what the business does, and easy to get in touch with — no template smell, no page that takes eight seconds to load. Then looked after afterwards, so changing your hours or adding a photo never means waiting on a developer who has moved on.',
     tags: ['Marketing sites', 'Mobile-first', 'Hosting & launch', 'Ongoing support'],
+  },
+  {
+    n: '09',
+    meta: 'SaaS · Various',
+    title: 'And other SaaS platforms',
+    body: 'Subscription products with real users behind logins, across a range of industries. Mostly the parts that never make it into a screenshot — accounts, roles, permissions, billing, and the admin side somebody has to actually run the business from. Different sectors, same fundamentals, and all of them still running.',
+    tags: ['Accounts & roles', 'Permissions', 'Billing', 'Admin tooling'],
   },
 ];
 
