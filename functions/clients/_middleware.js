@@ -98,9 +98,20 @@ function shell(title, inner) {
   p{color:#ada496;font-size:.92rem}
   form{margin-top:30px;display:flex;flex-direction:column;gap:12px}
   label{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#94897c}
-  input{width:100%;padding:14px 16px;border-radius:12px;font:inherit;font-size:.95rem;
+  .pw{position:relative;display:flex;align-items:center}
+  input{width:100%;padding:14px 52px 14px 16px;border-radius:12px;font:inherit;font-size:.95rem;
     color:#f7f3ea;background:#14110f;border:1px solid rgba(255,236,214,.2)}
   input:focus{outline:none;border-color:#7fae83;box-shadow:0 0 0 3px rgba(127,174,131,.16)}
+  /* show/hide toggle — only appears if JS is running, since that is what moves it */
+  .peek{position:absolute;right:6px;margin:0;padding:9px;display:grid;place-items:center;
+    background:none;border:0;border-radius:9px;cursor:pointer;color:#94897c;line-height:0}
+  .peek:hover{color:#f7f3ea;background:rgba(255,236,214,.07);filter:none}
+  .peek:focus-visible{outline:2px solid #7fae83;outline-offset:2px}
+  .peek svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;
+    stroke-linecap:round;stroke-linejoin:round;grid-area:1/1}
+  /* SVG elements have no hidden IDL property, so the swap rides on a class */
+  .peek .is-off{display:none}
+  .peek[hidden]{display:none}
   button{margin-top:6px;padding:14px 20px;border:0;border-radius:99px;cursor:pointer;
     font:inherit;font-weight:600;font-size:.92rem;color:#0d0b0a;
     background:linear-gradient(115deg,#6f9a73 0%,#d9a94a 52%,#cf7350 100%)}
@@ -127,13 +138,55 @@ function signInPage(error) {
     <p>Enter the password Julie gave you. It keeps you signed in on this device for 30 days.</p>
     <form method="POST" autocomplete="on">
       <label for="password">Password</label>
-      <input id="password" name="password" type="password" autocomplete="current-password"
-             autofocus required>
+      <div class="pw">
+        <input id="password" name="password" type="password" autocomplete="current-password"
+               autofocus required>
+        <button class="peek" id="peek" type="button" hidden
+                aria-label="Show password" aria-pressed="false" aria-controls="password">
+          <svg id="peekOn" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+          <svg id="peekOff" class="is-off" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M10.6 6.2A9.8 9.8 0 0 1 12 6c6.4 0 10 6 10 6a17 17 0 0 1-3.2 3.8"/>
+            <path d="M6.5 7.8A17 17 0 0 0 2 12s3.6 6 10 6a9.6 9.6 0 0 0 4-.8"/>
+            <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/>
+            <path d="M3 3l18 18"/>
+          </svg>
+        </button>
+      </div>
       ${error ? `<p class="err">${escapeHtml(error)}</p>` : ''}
       <button type="submit">Open</button>
     </form>
     <p class="foot">Don&rsquo;t have it? Email
-      <a href="mailto:hello@technottape.com">hello@technottape.com</a>.</p>`
+      <a href="mailto:hello@technottape.com">hello@technottape.com</a>.</p>
+    <script>
+      // Revealed only here, so a visitor without JS never sees a button that
+      // cannot do anything. The field goes back to hidden on submit, so a
+      // revealed password is not left on screen behind the next page.
+      (function () {
+        var field = document.getElementById('password');
+        var peek = document.getElementById('peek');
+        var on = document.getElementById('peekOn');
+        var off = document.getElementById('peekOff');
+        if (!field || !peek) return;
+        peek.hidden = false;
+        function set(shown) {
+          field.type = shown ? 'text' : 'password';
+          on.classList.toggle('is-off', shown);
+          off.classList.toggle('is-off', !shown);
+          peek.setAttribute('aria-pressed', String(shown));
+          peek.setAttribute('aria-label', shown ? 'Hide password' : 'Show password');
+        }
+        peek.addEventListener('click', function () {
+          var caret = field.selectionStart;
+          set(field.type === 'password');
+          field.focus();
+          try { field.setSelectionRange(caret, caret); } catch (e) {}
+        });
+        field.form.addEventListener('submit', function () { set(false); });
+      })();
+    </script>`
   );
 }
 
