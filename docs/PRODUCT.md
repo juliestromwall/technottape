@@ -33,6 +33,8 @@ is still around to change it later.
 | Work | `/work/` | Four projects described without client names, plus a "small jobs welcome" note |
 | About | `/about/` | Julie's background, how she works, where the name came from |
 | Contact | `/contact/` | Enquiry form, phone, email, and what happens next |
+| Client area | `/clients/` | Private, password-gated. An index of clients, then a page per client |
+| Bunce | `/clients/bunce/` | The Bunce Hub prototype and the platform proposal, for Bunce Performing Arts |
 | 404 | any | Friendly not-found page |
 
 ## Key Flows
@@ -42,6 +44,10 @@ is still around to change it later.
 2. **Call:** The phone number in the nav, footer, and CTA bands is a `tel:` link.
 3. **Mobile nav:** Hamburger toggles a stacked link list; the desktop links,
    phone number, and CTA button are hidden below 720px.
+4. **Client sign-in:** A client opens `/clients/<name>/`, is asked for the shared
+   password, and is signed in on that device for 30 days. The gate runs at the
+   edge in front of every file under `/clients/`, so a deep link to a prototype
+   script or the proposal HTML is protected too. `/clients/signout` clears it.
 
 ## Terminology
 
@@ -51,6 +57,7 @@ is still around to change it later.
 | Launch | Domains, DNS, mail, hosting, and the go-live cutover |
 | Support | Flat monthly arrangement for changes and maintenance after launch |
 | Static export | `next build` writes plain HTML/CSS/JS to `out/` |
+| Client area | Password-gated `/clients/` holding work in progress for a named client |
 
 ## Brand
 

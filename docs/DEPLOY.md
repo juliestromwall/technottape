@@ -127,6 +127,45 @@ deployment must exist under the same environment.
 
 All of these paths were verified locally with `npx wrangler pages dev out`.
 
+## 5. The client area (/clients/)
+
+Client work — prototypes, proposals with pricing in them — lives under
+`/clients/` behind one shared password. `functions/clients/_middleware.js` runs
+in front of **every** file under that path, so a deep link to a script, an image
+or the proposal HTML is gated exactly like the page is. Nothing is served until
+a correct password has set a signed, expiring cookie (30 days).
+
+### Set the password
+
+Pages project -> **Settings** -> **Environment variables** -> Production:
+
+| Name | Value | Type |
+|---|---|---|
+| `CLIENT_PASSWORD` | the shared password you give clients | **Secret** (encrypt) |
+
+Then redeploy. **It fails closed**: with no `CLIENT_PASSWORD` set, `/clients/*`
+returns 503 and serves nothing — so a deploy that forgets the variable leaks
+nothing, it just locks the area.
+
+To change the password, edit the variable and redeploy. Everyone who is already
+signed in is signed out, because their cookie was signed with the old one.
+
+### What is there
+
+```
+app/clients/page.jsx              index of clients
+app/clients/bunce/page.jsx        the Bunce page — links to the two files below
+public/clients/bunce/demo/        The Bunce Hub prototype (vanilla JS, no build)
+public/clients/bunce/proposal/    the proposal, one self-contained HTML file
+```
+
+`public/` is copied into `out/` verbatim, so the prototype and proposal ship as
+plain static files. To add a client: a page under `app/clients/<name>/`, their
+files under `public/clients/<name>/`. The gate covers them automatically.
+
+`/clients/signout` clears the cookie. `/clients/` is disallowed in `robots.txt`
+and every response under it carries `x-robots-tag: noindex, nofollow`.
+
 ## Still open
 
 - **Email on the domain.** `hello@technottape.com` does not exist — there are no

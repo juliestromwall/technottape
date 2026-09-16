@@ -1,5 +1,50 @@
 # Session Log
 
+## 2026-09-15
+
+**Worked on:** A password-gated client area at `/clients/`, and moving the Bunce
+prototype and proposal into it from their own Cloudflare Pages projects.
+
+**Decisions taken with Julie:**
+- **One shared password**, not emailed sign-in codes — she wants to say it out
+  loud on a call without the client waiting on an inbox. Cloudflare Access
+  remains the upgrade path if a client ever needs individual access.
+- **One page per client** holding everything for that client, rather than a flat
+  list of files, so she sends a single link.
+- `bunce.juliestromwall.com` **comes down entirely** once this is live.
+
+**Changes made:**
+- `functions/clients/_middleware.js` — the gate. Runs in front of every file
+  under `/clients/`, so deep links to prototype scripts or the proposal HTML are
+  covered. A correct password mints an HMAC-signed, 30-day cookie; the password
+  itself is never stored in the cookie. Constant-time compare, a 700ms pause on
+  a wrong guess, `no-store` on the sign-in page, `x-robots-tag: noindex` on
+  everything it serves. Fails closed: no `CLIENT_PASSWORD`, no content.
+- `app/clients/page.jsx` and `app/clients/bunce/page.jsx` — the index and the
+  Bunce page, in the site's own design language.
+- `public/clients/bunce/demo/` — the Bunce Hub prototype, copied from the
+  `bunce-hub-demo` repo. `public/clients/bunce/proposal/` — the proposal, one
+  self-contained 1.6MB HTML file, copied from `bunce-proposal`.
+- `.client-item` / `.client-foot` block added to `app/globals.css`.
+- `robots.txt` disallows `/clients/`.
+
+**Verified locally** with `npx wrangler pages dev out`: the gate returns 401 for
+the page, for `demo/app.js`, and for the proposal; a correct password returns
+303 and sets the cookie; every path then returns 200; `/clients/signout` clears
+it and the next request is 401 again.
+
+**Next steps:**
+- Set `CLIENT_PASSWORD` in the Pages dashboard (Production, encrypted), then
+  redeploy. Until then `/clients/*` returns 503 by design.
+- Delete the `bunce-hub-demo` and `bunce-proposal` Cloudflare Pages projects —
+  both `.pages.dev` URLs are public right now, and the proposal has pricing in
+  it. Remove the `bunce` CNAME from `juliestromwall.com` DNS.
+
+**Open questions:**
+- Whether the `bunce-hub-demo` repo stays the place to edit the prototype, or
+  whether `public/clients/bunce/demo/` becomes the only copy. Right now it is a
+  copy, and the technottape one is what ships.
+
 ## 2026-09-02
 
 **Worked on:** Built technottape.com from scratch — the marketing site for Tech

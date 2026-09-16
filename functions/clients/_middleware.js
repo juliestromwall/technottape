@@ -1,0 +1,221 @@
+/**
+ * Password gate for /clients/* — Cloudflare Pages Function middleware.
+ *
+ * Client work (prototypes, proposals with pricing in them) sits under
+ * /clients/. The site is a static export, so there is no server to hold a
+ * password; this runs at Cloudflare's edge instead, in front of every file
+ * under that path — pages, scripts, images, the lot. There is no way to
+ * deep-link past it.
+ *
+ * Required environment variable, set in the Pages dashboard:
+ *   CLIENT_PASSWORD   the shared password you give a client
+ *
+ * The password itself is never written into a cookie. A correct password
+ * mints a signed, expiring token instead, so a stolen cookie is useless
+ * once it lapses and tells nobody what the password was.
+ */
+
+const COOKIE = 'tnt_client';
+const MAX_AGE = 60 * 60 * 24 * 30; // 30 days, then they sign in again
+
+/* ---------- token ---------- */
+
+const enc = new TextEncoder();
+
+async function sign(value, secret) {
+  const key = await crypto.subtle.importKey(
+    'raw',
+    enc.encode(secret),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  );
+  const mac = await crypto.subtle.sign('HMAC', key, enc.encode(value));
+  return btoa(String.fromCharCode(...new Uint8Array(mac)))
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');
+}
+
+// compares in constant time so a wrong guess takes as long as a right one
+function sameString(a, b) {
+  if (typeof a !== 'string' || typeof b !== 'string' || a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return diff === 0;
+}
+
+async function mintToken(secret) {
+  const expires = Date.now() + MAX_AGE * 1000;
+  return `${expires}.${await sign(String(expires), secret)}`;
+}
+
+async function tokenIsGood(token, secret) {
+  if (!token) return false;
+  const dot = token.indexOf('.');
+  if (dot < 1) return false;
+  const expires = token.slice(0, dot);
+  const mac = token.slice(dot + 1);
+  if (!/^\d+$/.test(expires) || Number(expires) < Date.now()) return false;
+  return sameString(mac, await sign(expires, secret));
+}
+
+function readCookie(header, name) {
+  if (!header) return '';
+  for (const part of header.split(';')) {
+    const eq = part.indexOf('=');
+    if (eq === -1) continue;
+    if (part.slice(0, eq).trim() === name) return part.slice(eq + 1).trim();
+  }
+  return '';
+}
+
+/* ---------- the sign-in page ---------- */
+
+const escapeHtml = (s) =>
+  String(s).replace(/[&<>"']/g, (c) =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])
+  );
+
+function shell(title, inner) {
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>${escapeHtml(title)} — Tech Not Tape</title>
+<link rel="icon" href="/icon-tab.svg">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{min-height:100vh;display:grid;place-items:center;padding:28px;
+    background:#0d0b0a;color:#f7f3ea;line-height:1.6;
+    font-family:'Inter',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+  .card{width:100%;max-width:420px}
+  .mark{display:block;height:26px;margin-bottom:38px;opacity:.9}
+  .eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#e6b455}
+  h1{font-size:1.75rem;line-height:1.15;letter-spacing:-.02em;margin:14px 0 12px;font-weight:600}
+  p{color:#ada496;font-size:.92rem}
+  form{margin-top:30px;display:flex;flex-direction:column;gap:12px}
+  label{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#94897c}
+  input{width:100%;padding:14px 16px;border-radius:12px;font:inherit;font-size:.95rem;
+    color:#f7f3ea;background:#14110f;border:1px solid rgba(255,236,214,.2)}
+  input:focus{outline:none;border-color:#7fae83;box-shadow:0 0 0 3px rgba(127,174,131,.16)}
+  button{margin-top:6px;padding:14px 20px;border:0;border-radius:99px;cursor:pointer;
+    font:inherit;font-weight:600;font-size:.92rem;color:#0d0b0a;
+    background:linear-gradient(115deg,#6f9a73 0%,#d9a94a 52%,#cf7350 100%)}
+  button:hover{filter:brightness(1.07)}
+  .err{margin-top:2px;font-size:.84rem;color:#e07f57}
+  .foot{margin-top:34px;font-size:.78rem;color:#94897c}
+  .foot a{color:#ada496}
+</style>
+</head>
+<body>
+  <main class="card">
+    <img class="mark" src="/signature-wordmark-onblack.png" alt="Tech Not Tape">
+    ${inner}
+  </main>
+</body>
+</html>`;
+}
+
+function signInPage(error) {
+  return shell(
+    'Client area',
+    `<p class="eyebrow">Client area</p>
+    <h1>This work is private.</h1>
+    <p>Enter the password Julie gave you. It keeps you signed in on this device for 30 days.</p>
+    <form method="POST" autocomplete="on">
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" autocomplete="current-password"
+             autofocus required>
+      ${error ? `<p class="err">${escapeHtml(error)}</p>` : ''}
+      <button type="submit">Open</button>
+    </form>
+    <p class="foot">Don&rsquo;t have it? Email
+      <a href="mailto:hello@technottape.com">hello@technottape.com</a>.</p>`
+  );
+}
+
+function html(body, status) {
+  return new Response(body, {
+    status,
+    headers: {
+      'content-type': 'text/html; charset=utf-8',
+      'cache-control': 'no-store',
+      'x-robots-tag': 'noindex, nofollow',
+    },
+  });
+}
+
+/* ---------- the gate ---------- */
+
+export async function onRequest({ request, env, next }) {
+  const secret = env.CLIENT_PASSWORD;
+  const url = new URL(request.url);
+
+  // Fail closed. Without a password set, nothing under /clients/ is served.
+  if (!secret) {
+    return html(
+      shell(
+        'Not configured',
+        `<p class="eyebrow">Client area</p>
+        <h1>No password is set.</h1>
+        <p>Add <code>CLIENT_PASSWORD</code> to the Pages project&rsquo;s environment
+        variables and redeploy. Until then this area stays shut.</p>`
+      ),
+      503
+    );
+  }
+
+  const cookie = request.headers.get('cookie');
+
+  // signing out — drop the cookie, then show the sign-in page again
+  if (url.pathname === '/clients/signout' || url.pathname === '/clients/signout/') {
+    return new Response(null, {
+      status: 303,
+      headers: {
+        location: '/clients/',
+        'set-cookie': `${COOKIE}=; Path=/clients; Max-Age=0; HttpOnly; Secure; SameSite=Lax`,
+        'cache-control': 'no-store',
+      },
+    });
+  }
+
+  if (await tokenIsGood(readCookie(cookie, COOKIE), secret)) {
+    const res = await next();
+    // a signed-in page is still nobody's business but theirs
+    const out = new Response(res.body, res);
+    out.headers.set('x-robots-tag', 'noindex, nofollow');
+    return out;
+  }
+
+  if (request.method === 'POST') {
+    let given = '';
+    try {
+      const form = await request.formData();
+      given = String(form.get('password') || '');
+    } catch {
+      /* fall through to the error page */
+    }
+
+    if (sameString(given, secret)) {
+      return new Response(null, {
+        status: 303,
+        headers: {
+          location: url.pathname + url.search,
+          'set-cookie':
+            `${COOKIE}=${await mintToken(secret)}; Path=/clients; Max-Age=${MAX_AGE};` +
+            ' HttpOnly; Secure; SameSite=Lax',
+          'cache-control': 'no-store',
+        },
+      });
+    }
+
+    // slow a guesser down without making a real typo feel broken
+    await new Promise((r) => setTimeout(r, 700));
+    return html(signInPage('That password didn’t work. Try again.'), 401);
+  }
+
+  return html(signInPage(''), 401);
+}

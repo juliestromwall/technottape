@@ -11,6 +11,7 @@
 | CtaBand | `app/components/CtaBand.jsx` | Reusable gradient call-to-action band; title and body overridable per page |
 | ContactForm | `app/components/ContactForm.jsx` | Client-side enquiry form — Formspree POST, honeypot field, status messages, `mailto:` fallback when no Formspree ID is set |
 | Site config | `app/site.js` | Single source for name, domain, email, phone, location, nav items, Formspree ID |
+| Client gate | `functions/clients/_middleware.js` | Cloudflare Pages Function guarding every file under `/clients/` — shared password from `CLIENT_PASSWORD`, HMAC-signed 30-day cookie, sign-out route, fails closed when the variable is missing |
 
 ## Sections
 
@@ -29,6 +30,8 @@
 | How I work | About | Four principle cards |
 | Background | About | Dark band with a five-item experience checklist |
 | Contact | Contact | Form alongside phone/email/location card and a "what happens next" list |
+| Client index | `/clients/` | Private list of clients with live work; where sign-out lands |
+| Bunce client page | `/clients/bunce/` | Private page linking the Bunce Hub prototype and the platform proposal |
 
 ## Infrastructure
 
@@ -36,7 +39,8 @@
 |---|---|---|
 | Static export | `next.config.mjs` | `output: 'export'`, unoptimized images, trailing slashes |
 | Sitemap | `app/sitemap.js` | Generates `/sitemap.xml` for all five routes |
-| robots.txt | `public/robots.txt` | Allows all, points at the sitemap |
+| robots.txt | `public/robots.txt` | Allows all except `/clients/`, points at the sitemap |
+| Client files | `public/clients/bunce/` | The prototype (`demo/`, vanilla JS, no build) and the proposal (`proposal/index.html`, self-contained) copied verbatim into `out/` |
 | Favicon | `app/icon.svg` | The bar mark, served by Next's icon convention |
 | Per-page SEO | each `page.jsx` | Title, description, and canonical URL per route |
 | Node version | `.nvmrc` | 22, matching the Cloudflare Pages build |
