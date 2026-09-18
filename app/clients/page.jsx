@@ -13,7 +13,12 @@ export const metadata = {
   robots: { index: false, follow: false },
 };
 
-const clients = [{ name: 'Bunce Performing Arts', href: '/clients/bunce/', note: 'Prototype & proposal' }];
+const clients = [
+  { name: 'Bunce Performing Arts', href: '/clients/bunce/', note: 'Prototype & proposal' },
+  // Foundry has its own password — see AREAS in functions/clients/_middleware.js.
+  // Following this link asks for it, even though you are already signed in here.
+  { name: 'Foundry Distribution', href: '/clients/foundry/', note: 'Foundry Hub · separate password' },
+];
 
 export default function Clients() {
   return (

@@ -7,16 +7,52 @@
  * under that path — pages, scripts, images, the lot. There is no way to
  * deep-link past it.
  *
- * Required environment variable, set in the Pages dashboard:
- *   CLIENT_PASSWORD   the shared password you give a client
+ * Required environment variables, set in the Pages dashboard:
+ *   CLIENT_PASSWORD    the shared password for /clients/*
+ *   FOUNDRY_PASSWORD   Foundry's own password, for /clients/foundry/*
+ *
+ * Areas are separate gates, not tiers. Each has its own password, its own
+ * cookie, and its own signing secret, so holding the shared client password
+ * does not open Foundry's area and vice versa. An area with no password set
+ * fails closed rather than falling back to the shared one — a silent downgrade
+ * would be worse than a locked door.
  *
  * The password itself is never written into a cookie. A correct password
  * mints a signed, expiring token instead, so a stolen cookie is useless
  * once it lapses and tells nobody what the password was.
  */
 
-const COOKIE = 'tnt_client';
 const MAX_AGE = 60 * 60 * 24 * 30; // 30 days, then they sign in again
+
+// Most specific first — areaFor() takes the first prefix that matches.
+const AREAS = [
+  {
+    prefix: '/clients/foundry/',
+    cookiePath: '/clients/foundry',
+    cookie: 'tnt_foundry',
+    env: 'FOUNDRY_PASSWORD',
+    label: 'Foundry Hub',
+    home: '/clients/foundry/',
+    intro: 'Enter the password for the Foundry Hub preview.',
+  },
+  {
+    prefix: '/clients/',
+    cookiePath: '/clients',
+    cookie: 'tnt_client',
+    env: 'CLIENT_PASSWORD',
+    label: 'Client area',
+    home: '/clients/',
+    intro: 'Enter the password Julie gave you. It keeps you signed in on this device for 30 days.',
+  },
+];
+
+// The Foundry hub is a single-page app; its routes have no file on disk.
+const SPA_ROOT = '/clients/foundry/hub/';
+
+function areaFor(pathname) {
+  return AREAS.find((a) => pathname.startsWith(a.prefix)) ?? AREAS[AREAS.length - 1];
+}
+
 
 /* ---------- token ---------- */
 
@@ -130,12 +166,12 @@ function shell(title, inner) {
 </html>`;
 }
 
-function signInPage(error) {
+function signInPage(error, area) {
   return shell(
-    'Client area',
-    `<p class="eyebrow">Client area</p>
+    area.label,
+    `<p class="eyebrow">${escapeHtml(area.label)}</p>
     <h1>This work is private.</h1>
-    <p>Enter the password Julie gave you. It keeps you signed in on this device for 30 days.</p>
+    <p>${escapeHtml(area.intro)}</p>
     <form method="POST" autocomplete="on">
       <label for="password">Password</label>
       <div class="pw">
@@ -204,17 +240,19 @@ function html(body, status) {
 /* ---------- the gate ---------- */
 
 export async function onRequest({ request, env, next }) {
-  const secret = env.CLIENT_PASSWORD;
   const url = new URL(request.url);
+  const area = areaFor(url.pathname);
+  const secret = env[area.env];
 
-  // Fail closed. Without a password set, nothing under /clients/ is served.
+  // Fail closed. An area with no password set serves nothing — it does not
+  // quietly fall back to the shared client password.
   if (!secret) {
     return html(
       shell(
         'Not configured',
-        `<p class="eyebrow">Client area</p>
+        `<p class="eyebrow">${escapeHtml(area.label)}</p>
         <h1>No password is set.</h1>
-        <p>Add <code>CLIENT_PASSWORD</code> to the Pages project&rsquo;s environment
+        <p>Add <code>${escapeHtml(area.env)}</code> to the Pages project&rsquo;s environment
         variables and redeploy. Until then this area stays shut.</p>`
       ),
       503
@@ -223,20 +261,35 @@ export async function onRequest({ request, env, next }) {
 
   const cookie = request.headers.get('cookie');
 
-  // signing out — drop the cookie, then show the sign-in page again
-  if (url.pathname === '/clients/signout' || url.pathname === '/clients/signout/') {
+  // signing out — drop this area's cookie, then show its sign-in page again
+  if (url.pathname === `${area.home}signout` || url.pathname === `${area.home}signout/`) {
     return new Response(null, {
       status: 303,
       headers: {
-        location: '/clients/',
-        'set-cookie': `${COOKIE}=; Path=/clients; Max-Age=0; HttpOnly; Secure; SameSite=Lax`,
+        location: area.home,
+        'set-cookie': `${area.cookie}=; Path=${area.cookiePath}; Max-Age=0; HttpOnly; Secure; SameSite=Lax`,
         'cache-control': 'no-store',
       },
     });
   }
 
-  if (await tokenIsGood(readCookie(cookie, COOKIE), secret)) {
-    const res = await next();
+  if (await tokenIsGood(readCookie(cookie, area.cookie), secret)) {
+    let res = await next();
+
+    // Deep link into the Foundry single-page app — /hub/settings has no file on
+    // disk, so hand back its index and let the router resolve the path. A
+    // _redirects rule would be the usual way, but those are not applied to
+    // requests that arrive through a Pages Function, so it is done here.
+    if (res.status === 404 && url.pathname.startsWith(SPA_ROOT) && env.ASSETS) {
+      const index = await env.ASSETS.fetch(new URL(`${SPA_ROOT}index.html`, url.origin));
+      if (index.status === 200) {
+        res = new Response(index.body, {
+          status: 200,
+          headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' },
+        });
+      }
+    }
+
     // a signed-in page is still nobody's business but theirs
     const out = new Response(res.body, res);
     out.headers.set('x-robots-tag', 'noindex, nofollow');
@@ -258,7 +311,7 @@ export async function onRequest({ request, env, next }) {
         headers: {
           location: url.pathname + url.search,
           'set-cookie':
-            `${COOKIE}=${await mintToken(secret)}; Path=/clients; Max-Age=${MAX_AGE};` +
+            `${area.cookie}=${await mintToken(secret)}; Path=${area.cookiePath}; Max-Age=${MAX_AGE};` +
             ' HttpOnly; Secure; SameSite=Lax',
           'cache-control': 'no-store',
         },
@@ -267,8 +320,8 @@ export async function onRequest({ request, env, next }) {
 
     // slow a guesser down without making a real typo feel broken
     await new Promise((r) => setTimeout(r, 700));
-    return html(signInPage('That password didn’t work. Try again.'), 401);
+    return html(signInPage('That password didn\u2019t work. Try again.', area), 401);
   }
 
-  return html(signInPage(''), 401);
+  return html(signInPage('', area), 401);
 }

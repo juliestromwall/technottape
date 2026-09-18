@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Journeys Hub — prototype</title>
+<meta name="description" content="A clickable prototype of an all-in-one platform for Jeanie's Journeys.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#417586">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="demobar">
+  <strong>The Journeys Hub</strong>
+  <span class="tag">Prototype</span>
+  <span class="spacer"></span>
+  <label for="personaSelect" class="hide-sm">Viewing as</label>
+  <select id="personaSelect" aria-label="Viewing as">
+    <option value="traveler">Traveller — Barbara Lindqvist</option>
+    <option value="jeanie">Jeanie — owner</option>
+    <option value="guide">Adventure Guide — Marla Chen</option>
+  </select>
+  <span class="meta hide-sm" id="personaBlurb" style="color:rgba(248,245,239,.55);font-size:.74rem"></span>
+  <span class="spacer hide-sm"></span>
+  <button id="resetBtn" type="button">Reset demo</button>
+</div>
+
+<header class="top">
+  <div class="top__in">
+    <a class="brand" href="#/">
+      <img src="assets/logo.png" alt="Jeanie's Journeys">
+      <span class="brand__sub">The<br>Journeys Hub</span>
+    </a>
+    <span class="spacer"></span>
+    <div class="whoami" id="whoami"></div>
+  </div>
+</header>
+
+<nav class="nav"><div class="nav__in" id="nav"></div></nav>
+
+<main class="wrap" id="view"></main>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -28,6 +28,24 @@ export const metadata = {
     title: `${site.name} — ${site.tagline}`,
     description:
       'Custom websites and software for small business. Built properly, launched carefully, supported once live.',
+    // Facebook, LinkedIn and X all read this. Without it a shared link renders
+    // as a bare text row with no picture.
+    images: [
+      {
+        url: '/og.png',
+        width: 1200,
+        height: 630,
+        alt: 'Tech Not Tape — software that holds. Ditch the tape.',
+      },
+    ],
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${site.name} — ${site.tagline}`,
+    description:
+      'Custom websites and software for small business. Built properly, launched carefully, supported once live.',
+    images: ['/og.png'],
   },
   alternates: { canonical: '/' },
   // The dense binary T is beautiful at 48px and up but turns to mush in a
